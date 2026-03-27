@@ -29,13 +29,23 @@ load_dotenv(ENV_PATH, override=False)
 
 
 class HandoffGeneration(dspy.Signature):
-    """Generate a reasoning trace and final handoff for an engineering benchmark."""
+    """Generate a reasoning trace and final handoff for an engineering benchmark.
+
+    Requirements:
+    - Treat the reference closed formulation as a normative target, not background context.
+    - Stay at the governing ambiguity level before recomposition.
+    - Preserve benchmark scope and closure state rather than inventing plausible generic policy.
+    - If an exact concrete value is not supported by the raw task or reference material, do not invent one; either keep it abstract or mark it as unresolved.
+    - Prefer benchmark-faithfulness over generic completeness.
+    """
 
     benchmark_id = dspy.InputField(desc="Benchmark identifier")
     raw_task = dspy.InputField(desc="Original messy task statement")
     reference_closed_formulation = dspy.InputField(desc="Reference closed formulation for the benchmark")
     expected_policy_questions = dspy.InputField(desc="Expected policy questions that often need to be surfaced")
+    chosen_directions = dspy.InputField(desc="Settled benchmark-specific directions that should be preserved rather than reopened")
     validation_criteria = dspy.InputField(desc="Validation criteria for the benchmark")
+    faithfulness_contract = dspy.InputField(desc="Benchmark-faithfulness instructions that constrain invention and preserve closure state")
 
     trace_markdown = dspy.OutputField(desc="Markdown reasoning trace showing how the task was shaped")
     handoff_markdown = dspy.OutputField(desc="Markdown final handoff ready for later scoring")
@@ -52,14 +62,18 @@ class HandoffGenerator(dspy.Module):
         raw_task: str,
         reference_closed_formulation: str,
         expected_policy_questions: str,
+        chosen_directions: str,
         validation_criteria: str,
+        faithfulness_contract: str,
     ):
         return self.generate(
             benchmark_id=benchmark_id,
             raw_task=raw_task,
             reference_closed_formulation=reference_closed_formulation,
             expected_policy_questions=expected_policy_questions,
+            chosen_directions=chosen_directions,
             validation_criteria=validation_criteria,
+            faithfulness_contract=faithfulness_contract,
         )
 
 
@@ -88,6 +102,20 @@ def write_run_slot(benchmark_id: str, candidate_id: str) -> Path:
 
 def configured_api_base() -> str | None:
     return os.getenv("OPENAI_API_BASE") or os.getenv("OPENAI_BASE_URL")
+
+
+def build_faithfulness_contract(benchmark: dict) -> str:
+    return (
+        "Use the benchmark reference as a binding target for scope and policy direction.\n"
+        "Do not invent concrete numeric thresholds, percentages, margins, sizes, or platform scope restrictions unless they are grounded in the raw task or reference materials.\n"
+        "If a policy locus is explicit but its exact value is not grounded, keep it abstract or name it as unresolved instead of fabricating a specific choice.\n"
+        "Preserve the benchmark's intended scope; do not narrow it for convenience.\n"
+        "Preserve distinctions named in the reference closed formulation and expected policy questions.\n"
+        "If chosen directions are provided, treat them as already settled and do not reopen or replace them with generic alternatives unless the raw task explicitly conflicts.\n"
+        f"Reference closure target:\n{benchmark['reference_closed_formulation']}\n\n"
+        f"Chosen directions:\n{benchmark.get('chosen_directions') or '(none)'}\n\n"
+        f"Expected policy questions:\n{benchmark['expected_policy_questions']}"
+    )
 
 
 def configure_lm(model: str, temperature: float) -> None:
@@ -132,7 +160,9 @@ def real_generation(benchmark: dict) -> tuple[str, str]:
         raw_task=benchmark["raw_task"],
         reference_closed_formulation=benchmark["reference_closed_formulation"],
         expected_policy_questions=benchmark["expected_policy_questions"],
+        chosen_directions=benchmark.get("chosen_directions") or "",
         validation_criteria=benchmark["validation_criteria"],
+        faithfulness_contract=build_faithfulness_contract(benchmark),
     )
     return prediction.trace_markdown, prediction.handoff_markdown
 

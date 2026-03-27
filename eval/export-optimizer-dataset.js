@@ -37,6 +37,7 @@ function collectBenchmarks() {
       benchmark_id: id,
       raw_task: readText(path.join(dir, 'raw', 'task.md')),
       reference_closed_formulation: readText(path.join(dir, 'reference', 'closed-formulation.md')),
+      chosen_directions: readText(path.join(dir, 'reference', 'chosen-directions.md')),
       expected_policy_questions: readText(path.join(dir, 'reference', 'expected-policy-questions.md')),
       validation_criteria: readText(path.join(dir, 'validation', 'criteria.md')),
       baseline: readText(path.join(dir, 'baseline.md')),

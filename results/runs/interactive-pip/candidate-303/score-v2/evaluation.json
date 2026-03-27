@@ -1,0 +1,55 @@
+{
+  "rubric_version": "pda-handoff-v2",
+  "candidate_id": "candidate-303",
+  "benchmark_id": "interactive-pip",
+  "notes": "Third LM-backed DSPy/Kimi candidate for the interactive PiP benchmark, generated after adding explicit chosen directions. It preserves the settled benchmark directions much more faithfully than prior automated runs and no longer drifts on threshold, hit-zone proportions, minimum size, scope, or metadata behavior.",
+  "hard_gates": {
+    "passed": true,
+    "violations": [],
+    "rationale": "No hard-gate violation observed. The run stays at the governing interaction-policy level and preserves the benchmark's chosen directions rather than substituting generic policy."
+  },
+  "phase_scores": {
+    "descent": {
+      "ambiguity_localization": { "score": 2, "rationale": "It localizes the task to the governing PiP interaction-policy ambiguities rather than code wiring." },
+      "abstraction_level_fidelity": { "score": 2, "rationale": "The trace remains at the correct semantic level throughout." },
+      "forced_vs_chosen_separation": { "score": 2, "rationale": "It distinguishes governing policy loci and then treats chosen benchmark directions as settled rather than reopened." },
+      "question_discipline": { "score": 2, "rationale": "The shaping is concise and targeted at the active ambiguity layers." },
+      "non_premature_descent": { "score": 2, "rationale": "It does not jump into implementation review before semantic closure." },
+      "optioning_readiness_discipline": { "score": 2, "rationale": "It enters explicit resolution at the right points and uses the chosen directions as closure rather than fabricating new specifics." }
+    },
+    "option_resolution": {
+      "explicit_residual_policy": { "score": 2, "rationale": "The benchmark's material interaction policy is explicit and settled." },
+      "option_quality": { "score": 2, "rationale": "Policy loci and resolutions are crisp and implementation-governing." },
+      "default_quality": { "score": 2, "rationale": "The chosen directions now match the benchmark's intended defaults rather than generic substitutes." },
+      "resolution_sufficiency": { "score": 2, "rationale": "No material ambiguity remains by recomposition." },
+      "recursive_return_discipline": { "score": 1, "rationale": "The run is clean and direct, but still does not show much explicit recursive return because the chosen directions collapse much of the remaining ambiguity quickly." }
+    },
+    "recomposition": {
+      "implementation_readiness": { "score": 2, "rationale": "The final handoff is directly actionable." },
+      "abstraction_level_fidelity": { "score": 2, "rationale": "The final handoff remains centered on the governing interaction-policy model." },
+      "structural_fidelity": { "score": 2, "rationale": "It preserves the benchmark's settled structure and chosen directions almost completely." },
+      "canonicality": { "score": 2, "rationale": "The handoff is compact and free of irrelevant speculative policy." },
+      "delegation_reliability": { "score": 2, "rationale": "A worker-agent should implement the intended PiP behavior with little semantic drift." },
+      "declared_irrelevancies_and_nongoals": { "score": 2, "rationale": "Non-goals are explicit and bounded to styling/animation layers rather than core interaction semantics." }
+    }
+  },
+  "totals": {
+    "descent": 12,
+    "option_resolution": 9,
+    "recomposition": 12,
+    "overall": 33,
+    "phase_minimums_passed": true,
+    "interpretation": "strong_pda_handoff"
+  },
+  "human_review": {
+    "performed": true,
+    "summary": "This is the first automated PiP run that is close to benchmark-faithful in both abstraction level and settled policy. Adding explicit chosen directions appears to have closed most of the remaining gap left by candidate-302.",
+    "questions": {
+      "removed_concealed_arbitrariness": { "answer": "yes", "rationale": "The decisive hidden forks are surfaced and the settled directions are preserved rather than reinvented." },
+      "questions_necessary_and_well_timed": { "answer": "yes", "rationale": "The shaping sequence remains focused and well-timed." },
+      "final_handoff_canonical": { "answer": "yes", "rationale": "The handoff is close to the benchmark's canonical task shape." },
+      "delegation_reliable": { "answer": "yes", "rationale": "A worker-agent should be guided toward the intended implementation with limited drift." },
+      "preserved_pda_spirit": { "answer": "yes", "rationale": "The run remains clearly de-arbitrarizing rather than merely operational." }
+    }
+  }
+}

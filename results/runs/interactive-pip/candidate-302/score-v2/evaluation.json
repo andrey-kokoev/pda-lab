@@ -1,0 +1,55 @@
+{
+  "rubric_version": "pda-handoff-v2",
+  "candidate_id": "candidate-302",
+  "benchmark_id": "interactive-pip",
+  "notes": "Second LM-backed DSPy/Kimi candidate for the interactive PiP benchmark, generated after adding a benchmark-faithfulness contract. It reduces invented numeric policy and preserves structural closure better than candidate-301, but still narrows scope to desktop and leaves some benchmark-chosen directions too open.",
+  "hard_gates": {
+    "passed": true,
+    "violations": [],
+    "rationale": "No hard-gate violation observed. The run remains centered on the governing interaction semantics, uses the reference closure as a normative target, and does not collapse into implementation review."
+  },
+  "phase_scores": {
+    "descent": {
+      "ambiguity_localization": { "score": 2, "rationale": "It localizes the hidden ambiguity correctly to PiP interaction semantics rather than code wiring." },
+      "abstraction_level_fidelity": { "score": 2, "rationale": "The trace remains at the right abstraction level throughout, and more explicitly binds itself to the benchmark reference than candidate-301." },
+      "forced_vs_chosen_separation": { "score": 2, "rationale": "It clearly distinguishes forced structural policy from tunable implementation parameters." },
+      "question_discipline": { "score": 2, "rationale": "The shaping is focused and avoids broadening into generic implementation review." },
+      "non_premature_descent": { "score": 2, "rationale": "It does not jump into coding before resolving the semantic model." },
+      "optioning_readiness_discipline": { "score": 2, "rationale": "The generator avoids fabricating exact numeric choices and explicitly defers unsupported values instead of prematurely concretizing them." }
+    },
+    "option_resolution": {
+      "explicit_residual_policy": { "score": 2, "rationale": "Residual freedom is made more explicit than in candidate-301, especially around ungrounded numeric parameters." },
+      "option_quality": { "score": 2, "rationale": "The policy loci are framed cleanly and without invented specificity, making the remaining implementation choices easier to reason about." },
+      "default_quality": { "score": 1, "rationale": "The run is better about not inventing defaults, but it still narrows scope to desktop and leaves some benchmark-settled directions too open." },
+      "resolution_sufficiency": { "score": 1, "rationale": "The run reaches a coherent and safer handoff, but not a fully benchmark-faithful closure state because scope and a few chosen directions still drift." },
+      "recursive_return_discipline": { "score": 1, "rationale": "There is disciplined shaping, but still little explicit recursive return after identifying partially open implementation parameters." }
+    },
+    "recomposition": {
+      "implementation_readiness": { "score": 2, "rationale": "A worker-agent could implement from this handoff directly." },
+      "abstraction_level_fidelity": { "score": 2, "rationale": "The final handoff remains a true interaction-spec handoff and stays semantically serious." },
+      "structural_fidelity": { "score": 2, "rationale": "Compared with candidate-301, it preserves the benchmark's structural distinctions more faithfully and avoids wrong concrete policy substitutions." },
+      "canonicality": { "score": 2, "rationale": "The handoff is compact, organized, and less cluttered by speculative values than candidate-301." },
+      "delegation_reliability": { "score": 2, "rationale": "A worker-agent is less likely to drift badly because fewer ungrounded specifics are asserted as if chosen." },
+      "declared_irrelevancies_and_nongoals": { "score": 1, "rationale": "It names some open parameters and out-of-scope items, but the desktop-only scope restriction is still not benchmark-faithful." }
+    }
+  },
+  "totals": {
+    "descent": 12,
+    "option_resolution": 7,
+    "recomposition": 11,
+    "overall": 30,
+    "phase_minimums_passed": true,
+    "interpretation": "strong_pda_handoff"
+  },
+  "human_review": {
+    "performed": true,
+    "summary": "The faithfulness contract improved this run materially. It still does not fully match the benchmark baseline, but it is safer and more faithful than candidate-301 because it stops inventing unsupported numeric policy.",
+    "questions": {
+      "removed_concealed_arbitrariness": { "answer": "mixed", "rationale": "It surfaces the main hidden semantic structure and avoids fabricated closure, but some scope and policy drift remains." },
+      "questions_necessary_and_well_timed": { "answer": "yes", "rationale": "The shaping sequence remains disciplined and well-timed." },
+      "final_handoff_canonical": { "answer": "mixed", "rationale": "The handoff is cleaner and more faithful than candidate-301, but still not canonical relative to the benchmark's full settled state." },
+      "delegation_reliable": { "answer": "yes", "rationale": "It is more reliable than candidate-301 because it avoids asserting wrong specifics as settled policy." },
+      "preserved_pda_spirit": { "answer": "yes", "rationale": "The run preserves the spirit of de-arbitrarization rather than drifting back to shallow implementation talk." }
+    }
+  }
+}

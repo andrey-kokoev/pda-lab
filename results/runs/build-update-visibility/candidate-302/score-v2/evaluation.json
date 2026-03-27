@@ -1,0 +1,55 @@
+{
+  "rubric_version": "pda-handoff-v2",
+  "candidate_id": "candidate-302",
+  "benchmark_id": "build-update-visibility",
+  "notes": "Second LM-backed DSPy/Kimi candidate for the build-update-visibility benchmark, generated after adding a benchmark-faithfulness contract. It stays benchmark-faithful and avoids invention, but becomes somewhat more abstract and slightly less implementation-ready than candidate-301.",
+  "hard_gates": {
+    "passed": true,
+    "violations": [],
+    "rationale": "No hard-gate violation observed. The run remains centered on build/update-state legibility, preserves landing-only placement, and avoids collapsing into deploy-time timestamp thinking."
+  },
+  "phase_scores": {
+    "descent": {
+      "ambiguity_localization": { "score": 2, "rationale": "It correctly localizes the governing ambiguity to build legibility rather than deploy-time display." },
+      "abstraction_level_fidelity": { "score": 2, "rationale": "The trace remains firmly at the benchmark's intended abstraction level throughout." },
+      "forced_vs_chosen_separation": { "score": 2, "rationale": "It cleanly separates forced informational needs from contingent UI realization." },
+      "question_discipline": { "score": 2, "rationale": "The shaping sequence is focused and well-bounded." },
+      "non_premature_descent": { "score": 2, "rationale": "It does not jump into a widget choice before resolving the product-state framing." },
+      "optioning_readiness_discipline": { "score": 2, "rationale": "It surfaces the relevant forks and avoids unnecessary fabrication of concrete parameters." }
+    },
+    "option_resolution": {
+      "explicit_residual_policy": { "score": 2, "rationale": "Residual freedom is explicit, especially around visual treatment and build-identity format." },
+      "option_quality": { "score": 2, "rationale": "The policy distinctions are clean and benchmark-relevant." },
+      "default_quality": { "score": 2, "rationale": "The chosen direction is benchmark-faithful: landing-only, low-weight, and focused on current/latest/refresh-needed state." },
+      "resolution_sufficiency": { "score": 2, "rationale": "The benchmark's material ambiguity is resolved well enough for a coherent implementation handoff." },
+      "recursive_return_discipline": { "score": 1, "rationale": "The trace is disciplined, but there is little explicit recursive return once the main framing is settled." }
+    },
+    "recomposition": {
+      "implementation_readiness": { "score": 1, "rationale": "The handoff is coherent but more abstract than candidate-301, omitting concrete technical hooks like build-time injection and latest-version endpoint checks." },
+      "abstraction_level_fidelity": { "score": 2, "rationale": "The final handoff remains centered on build/update-state legibility." },
+      "structural_fidelity": { "score": 2, "rationale": "It preserves the core benchmark distinctions between current identity, latest identity, and refresh-needed state." },
+      "canonicality": { "score": 2, "rationale": "The handoff is compact and free of irrelevant flourish." },
+      "delegation_reliability": { "score": 1, "rationale": "A worker-agent would stay on the right problem, but would still need to make more technical execution choices than with candidate-301." },
+      "declared_irrelevancies_and_nongoals": { "score": 2, "rationale": "Non-goals and unresolved implementation specifics are declared clearly and without semantic drift." }
+    }
+  },
+  "totals": {
+    "descent": 12,
+    "option_resolution": 9,
+    "recomposition": 10,
+    "overall": 31,
+    "phase_minimums_passed": true,
+    "interpretation": "strong_pda_handoff"
+  },
+  "human_review": {
+    "performed": true,
+    "summary": "The faithfulness contract keeps this run aligned to the benchmark and avoids invention, but on the simpler build-visibility task it also makes the handoff slightly more abstract than the earlier DSPy run. The result is still strong, but improved more in safety than in implementation leverage.",
+    "questions": {
+      "removed_concealed_arbitrariness": { "answer": "yes", "rationale": "The decisive hidden forks are surfaced and resolved." },
+      "questions_necessary_and_well_timed": { "answer": "yes", "rationale": "The shaping sequence remains disciplined and well-timed." },
+      "final_handoff_canonical": { "answer": "yes", "rationale": "The final handoff is compact and benchmark-faithful." },
+      "delegation_reliable": { "answer": "mixed", "rationale": "Reliable for staying on the right problem, but slightly less technically actionable than candidate-301." },
+      "preserved_pda_spirit": { "answer": "yes", "rationale": "The run remains de-arbitrarizing rather than generic." }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-27T02:21:26.657Z",
+  "generated_at": "2026-03-27T14:14:08.353Z",
   "forward_rubric": "pda-handoff-v2",
   "historical_rubric": "pda-handoff-v1",
   "benchmarks": [
@@ -7,6 +7,7 @@
       "benchmark_id": "build-update-visibility",
       "raw_task": "# Raw Task\n\nFor our app, it is difficult to know if mobile is cached or is refreshed. What are coherent options to fix it? Last time of deploy?\n\nThis should remain close to the original user wording rather than a normalized product brief.\n",
       "reference_closed_formulation": "# Reference Closed Formulation\n\nTarget closure for this benchmark:\n\n- The problem is not merely “show deploy time”; it is making the currently running client build legible.\n- The user-visible need is strongest on the landing view, not in-call UI.\n- The solution should distinguish:\n  - current build identity\n  - latest available build identity\n  - whether refresh is needed\n- Status display should be low-weight, non-modal, and product-coherent.\n- The handoff should avoid overbuilding diagnostics into call views.\n\nThe benchmark should reward traces that shape the task before implementation rather than jumping straight to a badge/banner widget.\n",
+      "chosen_directions": "# Chosen Directions\n\nThese benchmark-specific directions are already settled and should be preserved in generated handoffs rather than reopened or replaced with generic defaults.\n\n- The problem is build/update-state legibility, not deploy timestamp display.\n- The relevant visible state is: current build identity, latest available build identity, and whether refresh is needed.\n- Placement is landing-view only.\n- Call-view or in-session UI is out of scope.\n- Presentation should be low-weight and non-modal.\n- Deploy timestamp may appear only as secondary metadata, not the primary signal.\n",
       "expected_policy_questions": "# Expected Policy Questions\n\nA strong PDA trace should make some version of these decision points explicit:\n\n1. Is the goal build identity, update availability, deploy time, or all three?\n2. Where in the product should this state be shown?\n3. How prominent should the UI be in steady state?\n4. Is call-view placement coherent, or should it be restricted to landing/diagnostics?\n5. What counts as enough information to know whether the client is stale?\n",
       "validation_criteria": "# Validation Criteria\n\n- Final handoff correctly reframes the problem as build/update-state visibility rather than just deploy timestamp display.\n- UI placement and prominence are made explicit before implementation.\n- Resulting implementation is coherent with product context and avoids modal/badge overstatement.\n- Validation can check for current-build metadata, update detection, and landing-view-only presentation.\n",
       "baseline": "# Baseline\n\n- Repo: `telesense`\n- Baseline reference: commit immediately before the build/update-visibility thread used for this benchmark\n- Purpose: freeze the codebase state before feature shaping and implementation\n\nPopulate the exact commit SHA when the benchmark is finalized.\n"
@@ -15,6 +16,7 @@
       "benchmark_id": "interactive-pip",
       "raw_task": "# Raw Task\n\nReview current changes in repo `telesense`.\n\nThen:\n- determine whether desktop PiP drag/resize behavior is actually wired up\n- complete the wiring\n- fix the issues found in review\n\nThis entry point should stay close to the original messy conversational start, without pre-cleaning hidden policy.\n",
       "reference_closed_formulation": "# Reference Closed Formulation\n\nTarget closure for this benchmark:\n\n- PiP is modeled as a free panel, not an aspect-preserving video object.\n- Geometry is a bounded rectangle inside the containing video region.\n- Input ownership belongs to the PiP once an active gesture starts.\n- Gesture semantics are explicit:\n  - center moves\n  - edges resize one axis\n  - corners resize two axes\n- Hit zones are disjoint and proportional.\n- Persistence uses normalized top-left origin plus normalized width/height.\n- Recomposition is allowed only after remaining policy is forced, explicitly chosen, or irrelevant.\n\nThe benchmark should reward handoffs that surface and settle these policy decisions before implementation.\n",
+      "chosen_directions": "# Chosen Directions\n\nThese benchmark-specific directions are already settled and should be preserved in generated handoffs rather than reopened or replaced with generic defaults.\n\n- PiP is a free panel.\n- Persistence uses normalized top-left origin plus normalized width and height, measured against the full containing region.\n- No edge/corner snapping on restore.\n- Input uses unified pointer-event semantics wherever the PiP appears, not desktop-only wiring.\n- PiP owns the active gesture once it starts.\n- Gesture mode is fixed at pointerdown.\n- Click is suppressed after movement past an explicit threshold.\n- The movement threshold is 8px.\n- Hit zones are disjoint proportional regions, using one-sixth border bands on all sides.\n- Center moves; edges resize one axis; corners resize two axes.\n- Minimum size is fixed at 120px by 120px.\n- Maximum size may expand up to the containing bounds rather than using an arbitrary smaller ratio.\n- Video metadata changes do not reshape panel geometry.\n- Content fitting is separate from panel geometry.\n- Default placement is bottom-right.\n",
       "expected_policy_questions": "# Expected Policy Questions\n\nA strong PDA trace should make some version of these decision points explicit:\n\n1. Is PiP a free panel or a video-shaped object?\n2. What persists across resize/remount?\n3. What hit-zone semantics define move vs edge resize vs corner resize?\n4. How is click suppressed after drag/resize?\n5. Who owns the gesture during active interaction?\n6. What counts as sufficient closure before implementation proceeds?\n",
       "validation_criteria": "# Validation Criteria\n\n- Final handoff is implementation-ready.\n- Hidden interaction policy is made explicit before coding.\n- Remaining freedom is either chosen or declared irrelevant.\n- Resulting implementation can be reviewed against bounded geometry, pointer ownership, and reset/persistence semantics.\n",
       "baseline": "# Baseline\n\n- Repo: `telesense`\n- Baseline reference: commit immediately before the interactive PiP thread used for this benchmark\n- Purpose: freeze the codebase state before PDA-guided clarification and implementation\n\nPopulate the exact commit SHA when the benchmark is finalized.\n"
@@ -405,6 +407,326 @@
         }
       },
       "score_path": "results/runs/build-update-visibility/candidate-101/score-v2/evaluation.json",
+      "score_is_v2_preferred": true
+    },
+    {
+      "benchmark_id": "build-update-visibility",
+      "candidate_id": "candidate-201",
+      "manifest": {
+        "benchmark_id": "build-update-visibility",
+        "candidate_id": "candidate-201",
+        "candidate_artifact": "optimizer/dspy",
+        "run_kind": "automated",
+        "source_kind": "optimizer_generated",
+        "summary": "DSPy-generated candidate run.",
+        "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+      },
+      "score": null,
+      "score_path": null,
+      "score_is_v2_preferred": false
+    },
+    {
+      "benchmark_id": "build-update-visibility",
+      "candidate_id": "candidate-202",
+      "manifest": {
+        "benchmark_id": "build-update-visibility",
+        "candidate_id": "candidate-202",
+        "candidate_artifact": "optimizer/dspy",
+        "run_kind": "automated",
+        "source_kind": "optimizer_generated",
+        "summary": "DSPy-generated candidate run.",
+        "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+      },
+      "score": null,
+      "score_path": null,
+      "score_is_v2_preferred": false
+    },
+    {
+      "benchmark_id": "build-update-visibility",
+      "candidate_id": "candidate-204",
+      "manifest": {
+        "benchmark_id": "build-update-visibility",
+        "candidate_id": "candidate-204",
+        "candidate_artifact": "optimizer/dspy",
+        "run_kind": "automated",
+        "source_kind": "optimizer_generated",
+        "summary": "DSPy-generated candidate run.",
+        "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+      },
+      "score": null,
+      "score_path": null,
+      "score_is_v2_preferred": false
+    },
+    {
+      "benchmark_id": "build-update-visibility",
+      "candidate_id": "candidate-301",
+      "manifest": {
+        "benchmark_id": "build-update-visibility",
+        "candidate_id": "candidate-301",
+        "candidate_artifact": "optimizer/dspy",
+        "run_kind": "automated",
+        "source_kind": "optimizer_generated",
+        "summary": "DSPy-generated candidate run.",
+        "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+      },
+      "score": {
+        "rubric_version": "pda-handoff-v2",
+        "candidate_id": "candidate-301",
+        "benchmark_id": "build-update-visibility",
+        "notes": "First LM-backed DSPy/Kimi candidate. It localizes the benchmark's governing ambiguity correctly and recomposes into a coherent landing-view-only implementation handoff, with some remaining compression in option resolution and non-goal declaration.",
+        "hard_gates": {
+          "passed": true,
+          "violations": [],
+          "rationale": "No hard-gate violation observed. The run stays centered on build/update-state legibility, resolves the key product placement and prominence forks before recomposition, and does not jump straight to deploy-time diagnostics."
+        },
+        "phase_scores": {
+          "descent": {
+            "ambiguity_localization": {
+              "score": 2,
+              "rationale": "It correctly identifies the underlying problem as legibility of the currently running build and its relation to updates, not merely deploy-time display."
+            },
+            "abstraction_level_fidelity": {
+              "score": 2,
+              "rationale": "The trace remains at the right abstraction level throughout the descent, centered on product-state legibility rather than generic support diagnostics."
+            },
+            "forced_vs_chosen_separation": {
+              "score": 2,
+              "rationale": "It distinguishes the forced need for current-build and stale-state legibility from contingent UI placement and prominence choices."
+            },
+            "question_discipline": {
+              "score": 2,
+              "rationale": "The surfaced questions are targeted and sequential, with each one reducing a live ambiguity rather than broadening the space."
+            },
+            "non_premature_descent": {
+              "score": 2,
+              "rationale": "It does not rush into a widget or endpoint design before shaping the governing product question."
+            },
+            "optioning_readiness_discipline": {
+              "score": 2,
+              "rationale": "It only resolves options after isolating the active forks around scope, audience, and sufficient build/update information."
+            }
+          },
+          "option_resolution": {
+            "explicit_residual_policy": {
+              "score": 2,
+              "rationale": "The remaining choices around placement, prominence, and what counts as stale are made explicit and resolved."
+            },
+            "option_quality": {
+              "score": 1,
+              "rationale": "The options are decision-relevant, but some are resolved inline by analysis rather than being presented as a cleanly enumerated choice set."
+            },
+            "default_quality": {
+              "score": 2,
+              "rationale": "The defaults are strong and converge toward the intended landing-only, non-modal build legibility outcome."
+            },
+            "resolution_sufficiency": {
+              "score": 2,
+              "rationale": "By recomposition, the material product ambiguity is resolved well enough for implementation handoff."
+            },
+            "recursive_return_discipline": {
+              "score": 1,
+              "rationale": "The trace shows good staged descent, but not a strong explicit return from optioning back into a deeper descent cycle."
+            }
+          },
+          "recomposition": {
+            "implementation_readiness": {
+              "score": 2,
+              "rationale": "The final handoff is directly actionable and specifies scope, behavior, data needs, and validation checks."
+            },
+            "abstraction_level_fidelity": {
+              "score": 2,
+              "rationale": "The final handoff remains centered on build/update-state legibility and avoids collapsing back into generic diagnostics."
+            },
+            "structural_fidelity": {
+              "score": 2,
+              "rationale": "It preserves the core distinctions between current build, latest available build, and stale-state signaling."
+            },
+            "canonicality": {
+              "score": 2,
+              "rationale": "The handoff is compact and avoids major irrelevant flourish, while staying aligned to the benchmark's intended shape."
+            },
+            "delegation_reliability": {
+              "score": 2,
+              "rationale": "A competent worker-agent should execute this with relatively little semantic drift."
+            },
+            "declared_irrelevancies_and_nongoals": {
+              "score": 1,
+              "rationale": "Out-of-scope items are listed, but the handoff is lighter than the baseline in explicitly declaring irrelevancies and non-goals as closure artifacts."
+            }
+          }
+        },
+        "totals": {
+          "descent": 12,
+          "option_resolution": 8,
+          "recomposition": 11,
+          "overall": 31,
+          "phase_minimums_passed": true,
+          "interpretation": "strong_pda_handoff"
+        },
+        "human_review": {
+          "performed": true,
+          "summary": "This is the first external-style candidate in the lab that lands close to the benchmark's intended abstraction level and produces a genuinely usable handoff. It still compresses some option-resolution structure compared with the hand-authored baseline, but it is qualitatively stronger than the earlier external candidate.",
+          "questions": {
+            "removed_concealed_arbitrariness": {
+              "answer": "mixed",
+              "rationale": "It surfaces and resolves the main hidden forks, though some residual policy shaping is compressed into narrative analysis rather than explicit options."
+            },
+            "questions_necessary_and_well_timed": {
+              "answer": "yes",
+              "rationale": "The trace asks the right questions in the right order for this benchmark."
+            },
+            "final_handoff_canonical": {
+              "answer": "mixed",
+              "rationale": "The handoff is coherent and compact, though slightly less explicit than the baseline about non-goals and closure state."
+            },
+            "delegation_reliable": {
+              "answer": "yes",
+              "rationale": "A worker-agent should execute toward the intended outcome with limited semantic drift."
+            },
+            "preserved_pda_spirit": {
+              "answer": "mixed",
+              "rationale": "It meaningfully de-arbitrarizes the task, even if it does not expose every residual choice as explicitly as the baseline."
+            }
+          }
+        }
+      },
+      "score_path": "results/runs/build-update-visibility/candidate-301/score-v2/evaluation.json",
+      "score_is_v2_preferred": true
+    },
+    {
+      "benchmark_id": "build-update-visibility",
+      "candidate_id": "candidate-302",
+      "manifest": {
+        "benchmark_id": "build-update-visibility",
+        "candidate_id": "candidate-302",
+        "candidate_artifact": "optimizer/dspy",
+        "run_kind": "automated",
+        "source_kind": "optimizer_generated",
+        "summary": "DSPy-generated candidate run.",
+        "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+      },
+      "score": {
+        "rubric_version": "pda-handoff-v2",
+        "candidate_id": "candidate-302",
+        "benchmark_id": "build-update-visibility",
+        "notes": "Second LM-backed DSPy/Kimi candidate for the build-update-visibility benchmark, generated after adding a benchmark-faithfulness contract. It stays benchmark-faithful and avoids invention, but becomes somewhat more abstract and slightly less implementation-ready than candidate-301.",
+        "hard_gates": {
+          "passed": true,
+          "violations": [],
+          "rationale": "No hard-gate violation observed. The run remains centered on build/update-state legibility, preserves landing-only placement, and avoids collapsing into deploy-time timestamp thinking."
+        },
+        "phase_scores": {
+          "descent": {
+            "ambiguity_localization": {
+              "score": 2,
+              "rationale": "It correctly localizes the governing ambiguity to build legibility rather than deploy-time display."
+            },
+            "abstraction_level_fidelity": {
+              "score": 2,
+              "rationale": "The trace remains firmly at the benchmark's intended abstraction level throughout."
+            },
+            "forced_vs_chosen_separation": {
+              "score": 2,
+              "rationale": "It cleanly separates forced informational needs from contingent UI realization."
+            },
+            "question_discipline": {
+              "score": 2,
+              "rationale": "The shaping sequence is focused and well-bounded."
+            },
+            "non_premature_descent": {
+              "score": 2,
+              "rationale": "It does not jump into a widget choice before resolving the product-state framing."
+            },
+            "optioning_readiness_discipline": {
+              "score": 2,
+              "rationale": "It surfaces the relevant forks and avoids unnecessary fabrication of concrete parameters."
+            }
+          },
+          "option_resolution": {
+            "explicit_residual_policy": {
+              "score": 2,
+              "rationale": "Residual freedom is explicit, especially around visual treatment and build-identity format."
+            },
+            "option_quality": {
+              "score": 2,
+              "rationale": "The policy distinctions are clean and benchmark-relevant."
+            },
+            "default_quality": {
+              "score": 2,
+              "rationale": "The chosen direction is benchmark-faithful: landing-only, low-weight, and focused on current/latest/refresh-needed state."
+            },
+            "resolution_sufficiency": {
+              "score": 2,
+              "rationale": "The benchmark's material ambiguity is resolved well enough for a coherent implementation handoff."
+            },
+            "recursive_return_discipline": {
+              "score": 1,
+              "rationale": "The trace is disciplined, but there is little explicit recursive return once the main framing is settled."
+            }
+          },
+          "recomposition": {
+            "implementation_readiness": {
+              "score": 1,
+              "rationale": "The handoff is coherent but more abstract than candidate-301, omitting concrete technical hooks like build-time injection and latest-version endpoint checks."
+            },
+            "abstraction_level_fidelity": {
+              "score": 2,
+              "rationale": "The final handoff remains centered on build/update-state legibility."
+            },
+            "structural_fidelity": {
+              "score": 2,
+              "rationale": "It preserves the core benchmark distinctions between current identity, latest identity, and refresh-needed state."
+            },
+            "canonicality": {
+              "score": 2,
+              "rationale": "The handoff is compact and free of irrelevant flourish."
+            },
+            "delegation_reliability": {
+              "score": 1,
+              "rationale": "A worker-agent would stay on the right problem, but would still need to make more technical execution choices than with candidate-301."
+            },
+            "declared_irrelevancies_and_nongoals": {
+              "score": 2,
+              "rationale": "Non-goals and unresolved implementation specifics are declared clearly and without semantic drift."
+            }
+          }
+        },
+        "totals": {
+          "descent": 12,
+          "option_resolution": 9,
+          "recomposition": 10,
+          "overall": 31,
+          "phase_minimums_passed": true,
+          "interpretation": "strong_pda_handoff"
+        },
+        "human_review": {
+          "performed": true,
+          "summary": "The faithfulness contract keeps this run aligned to the benchmark and avoids invention, but on the simpler build-visibility task it also makes the handoff slightly more abstract than the earlier DSPy run. The result is still strong, but improved more in safety than in implementation leverage.",
+          "questions": {
+            "removed_concealed_arbitrariness": {
+              "answer": "yes",
+              "rationale": "The decisive hidden forks are surfaced and resolved."
+            },
+            "questions_necessary_and_well_timed": {
+              "answer": "yes",
+              "rationale": "The shaping sequence remains disciplined and well-timed."
+            },
+            "final_handoff_canonical": {
+              "answer": "yes",
+              "rationale": "The final handoff is compact and benchmark-faithful."
+            },
+            "delegation_reliable": {
+              "answer": "mixed",
+              "rationale": "Reliable for staying on the right problem, but slightly less technically actionable than candidate-301."
+            },
+            "preserved_pda_spirit": {
+              "answer": "yes",
+              "rationale": "The run remains de-arbitrarizing rather than generic."
+            }
+          }
+        }
+      },
+      "score_path": "results/runs/build-update-visibility/candidate-302/score-v2/evaluation.json",
       "score_is_v2_preferred": true
     },
     {
@@ -901,6 +1223,278 @@
         }
       },
       "score_path": "results/runs/interactive-pip/candidate-101/score-v2/evaluation.json",
+      "score_is_v2_preferred": true
+    },
+    {
+      "benchmark_id": "interactive-pip",
+      "candidate_id": "candidate-301",
+      "manifest": {
+        "benchmark_id": "interactive-pip",
+        "candidate_id": "candidate-301",
+        "candidate_artifact": "optimizer/dspy",
+        "run_kind": "automated",
+        "source_kind": "optimizer_generated",
+        "summary": "DSPy-generated candidate run.",
+        "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+      },
+      "score": {
+        "rubric_version": "pda-handoff-v2",
+        "candidate_id": "candidate-301",
+        "benchmark_id": "interactive-pip",
+        "notes": "First LM-backed DSPy/Kimi candidate for the interactive PiP benchmark. It stays at the correct semantic layer and produces a real interaction spec, but it drifts from benchmark-faithful policy values and narrows scope incorrectly.",
+        "hard_gates": {
+          "passed": true,
+          "violations": [],
+          "rationale": "No hard-gate violation observed. The run does not collapse into implementation review, and it explicitly shapes the governing interaction semantics before recomposition. Its weakness is policy fidelity, not abstraction-level failure."
+        },
+        "phase_scores": {
+          "descent": {
+            "ambiguity_localization": {
+              "score": 2,
+              "rationale": "It correctly localizes the live ambiguity to PiP interaction semantics rather than code wiring alone."
+            },
+            "abstraction_level_fidelity": {
+              "score": 2,
+              "rationale": "The trace stays at the right abstraction level, centered on object model, persistence, hit zones, gesture ownership, and bounds."
+            },
+            "forced_vs_chosen_separation": {
+              "score": 2,
+              "rationale": "It separates the need for explicit gesture semantics from contingent policy choices like hit-zone geometry and thresholding."
+            },
+            "question_discipline": {
+              "score": 2,
+              "rationale": "The surfaced questions are focused and move the formulation toward a usable interaction model."
+            },
+            "non_premature_descent": {
+              "score": 2,
+              "rationale": "It does not jump into file edits or implementation review before shaping the semantic structure."
+            },
+            "optioning_readiness_discipline": {
+              "score": 1,
+              "rationale": "It identifies the right policy loci, but tends to resolve them directly rather than holding a clearer explicit option phase."
+            }
+          },
+          "option_resolution": {
+            "explicit_residual_policy": {
+              "score": 1,
+              "rationale": "Some major policy decisions are explicit, but key benchmark-specific choices are either invented or compressed into assertions."
+            },
+            "option_quality": {
+              "score": 1,
+              "rationale": "The option structure is usable conceptually, but the resulting chosen values diverge from the benchmark's settled policy."
+            },
+            "default_quality": {
+              "score": 1,
+              "rationale": "Defaults are coherent generically, but several are wrong for this benchmark: threshold, min/max sizing, hit-zone proportions, and desktop-only scope."
+            },
+            "resolution_sufficiency": {
+              "score": 1,
+              "rationale": "The run reaches a coherent spec, but not one faithful enough to the benchmark's intended closure state."
+            },
+            "recursive_return_discipline": {
+              "score": 1,
+              "rationale": "There is staged shaping, but little explicit recursive return once concrete policy values are being chosen."
+            }
+          },
+          "recomposition": {
+            "implementation_readiness": {
+              "score": 2,
+              "rationale": "A worker-agent could implement the handoff directly."
+            },
+            "abstraction_level_fidelity": {
+              "score": 2,
+              "rationale": "The final handoff remains a genuine interaction-spec handoff rather than falling back to code review or generic UI advice."
+            },
+            "structural_fidelity": {
+              "score": 1,
+              "rationale": "It preserves the right semantic categories, but not the benchmark's settled policy details or cross-platform scope."
+            },
+            "canonicality": {
+              "score": 2,
+              "rationale": "The handoff is compact and structurally clear."
+            },
+            "delegation_reliability": {
+              "score": 1,
+              "rationale": "Execution would likely be coherent, but would drift materially from the intended benchmark outcome because of wrong chosen values and narrowed scope."
+            },
+            "declared_irrelevancies_and_nongoals": {
+              "score": 1,
+              "rationale": "It does declare some out-of-scope items, but incorrectly excludes touch/mobile behavior and does not align non-goals tightly to the benchmark."
+            }
+          }
+        },
+        "totals": {
+          "descent": 11,
+          "option_resolution": 5,
+          "recomposition": 9,
+          "overall": 25,
+          "phase_minimums_passed": true,
+          "interpretation": "usable_but_leaky"
+        },
+        "human_review": {
+          "performed": true,
+          "summary": "This candidate clears the main abstraction-level hurdle that defeated the earlier external PiP run, but it still substitutes plausible generic policy for the benchmark's actual chosen policy. It is semantically serious, but benchmark-faithfulness is only partial.",
+          "questions": {
+            "removed_concealed_arbitrariness": {
+              "answer": "mixed",
+              "rationale": "It surfaces the main hidden semantic structure, but some residual policy is resolved by invention rather than faithful closure."
+            },
+            "questions_necessary_and_well_timed": {
+              "answer": "yes",
+              "rationale": "The sequence of questions is good and tracks the interaction problem closely."
+            },
+            "final_handoff_canonical": {
+              "answer": "mixed",
+              "rationale": "The handoff is clean, but not canonical relative to the benchmark's actual settled policy set."
+            },
+            "delegation_reliable": {
+              "answer": "mixed",
+              "rationale": "A worker-agent would build something coherent, but not the intended PiP semantics without further correction."
+            },
+            "preserved_pda_spirit": {
+              "answer": "yes",
+              "rationale": "The run genuinely de-arbitrarizes the task instead of merely answering at the implementation layer."
+            }
+          }
+        }
+      },
+      "score_path": "results/runs/interactive-pip/candidate-301/score-v2/evaluation.json",
+      "score_is_v2_preferred": true
+    },
+    {
+      "benchmark_id": "interactive-pip",
+      "candidate_id": "candidate-302",
+      "manifest": {
+        "benchmark_id": "interactive-pip",
+        "candidate_id": "candidate-302",
+        "candidate_artifact": "optimizer/dspy",
+        "run_kind": "automated",
+        "source_kind": "optimizer_generated",
+        "summary": "DSPy-generated candidate run.",
+        "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+      },
+      "score": {
+        "rubric_version": "pda-handoff-v2",
+        "candidate_id": "candidate-302",
+        "benchmark_id": "interactive-pip",
+        "notes": "Second LM-backed DSPy/Kimi candidate for the interactive PiP benchmark, generated after adding a benchmark-faithfulness contract. It reduces invented numeric policy and preserves structural closure better than candidate-301, but still narrows scope to desktop and leaves some benchmark-chosen directions too open.",
+        "hard_gates": {
+          "passed": true,
+          "violations": [],
+          "rationale": "No hard-gate violation observed. The run remains centered on the governing interaction semantics, uses the reference closure as a normative target, and does not collapse into implementation review."
+        },
+        "phase_scores": {
+          "descent": {
+            "ambiguity_localization": {
+              "score": 2,
+              "rationale": "It localizes the hidden ambiguity correctly to PiP interaction semantics rather than code wiring."
+            },
+            "abstraction_level_fidelity": {
+              "score": 2,
+              "rationale": "The trace remains at the right abstraction level throughout, and more explicitly binds itself to the benchmark reference than candidate-301."
+            },
+            "forced_vs_chosen_separation": {
+              "score": 2,
+              "rationale": "It clearly distinguishes forced structural policy from tunable implementation parameters."
+            },
+            "question_discipline": {
+              "score": 2,
+              "rationale": "The shaping is focused and avoids broadening into generic implementation review."
+            },
+            "non_premature_descent": {
+              "score": 2,
+              "rationale": "It does not jump into coding before resolving the semantic model."
+            },
+            "optioning_readiness_discipline": {
+              "score": 2,
+              "rationale": "The generator avoids fabricating exact numeric choices and explicitly defers unsupported values instead of prematurely concretizing them."
+            }
+          },
+          "option_resolution": {
+            "explicit_residual_policy": {
+              "score": 2,
+              "rationale": "Residual freedom is made more explicit than in candidate-301, especially around ungrounded numeric parameters."
+            },
+            "option_quality": {
+              "score": 2,
+              "rationale": "The policy loci are framed cleanly and without invented specificity, making the remaining implementation choices easier to reason about."
+            },
+            "default_quality": {
+              "score": 1,
+              "rationale": "The run is better about not inventing defaults, but it still narrows scope to desktop and leaves some benchmark-settled directions too open."
+            },
+            "resolution_sufficiency": {
+              "score": 1,
+              "rationale": "The run reaches a coherent and safer handoff, but not a fully benchmark-faithful closure state because scope and a few chosen directions still drift."
+            },
+            "recursive_return_discipline": {
+              "score": 1,
+              "rationale": "There is disciplined shaping, but still little explicit recursive return after identifying partially open implementation parameters."
+            }
+          },
+          "recomposition": {
+            "implementation_readiness": {
+              "score": 2,
+              "rationale": "A worker-agent could implement from this handoff directly."
+            },
+            "abstraction_level_fidelity": {
+              "score": 2,
+              "rationale": "The final handoff remains a true interaction-spec handoff and stays semantically serious."
+            },
+            "structural_fidelity": {
+              "score": 2,
+              "rationale": "Compared with candidate-301, it preserves the benchmark's structural distinctions more faithfully and avoids wrong concrete policy substitutions."
+            },
+            "canonicality": {
+              "score": 2,
+              "rationale": "The handoff is compact, organized, and less cluttered by speculative values than candidate-301."
+            },
+            "delegation_reliability": {
+              "score": 2,
+              "rationale": "A worker-agent is less likely to drift badly because fewer ungrounded specifics are asserted as if chosen."
+            },
+            "declared_irrelevancies_and_nongoals": {
+              "score": 1,
+              "rationale": "It names some open parameters and out-of-scope items, but the desktop-only scope restriction is still not benchmark-faithful."
+            }
+          }
+        },
+        "totals": {
+          "descent": 12,
+          "option_resolution": 7,
+          "recomposition": 11,
+          "overall": 30,
+          "phase_minimums_passed": true,
+          "interpretation": "strong_pda_handoff"
+        },
+        "human_review": {
+          "performed": true,
+          "summary": "The faithfulness contract improved this run materially. It still does not fully match the benchmark baseline, but it is safer and more faithful than candidate-301 because it stops inventing unsupported numeric policy.",
+          "questions": {
+            "removed_concealed_arbitrariness": {
+              "answer": "mixed",
+              "rationale": "It surfaces the main hidden semantic structure and avoids fabricated closure, but some scope and policy drift remains."
+            },
+            "questions_necessary_and_well_timed": {
+              "answer": "yes",
+              "rationale": "The shaping sequence remains disciplined and well-timed."
+            },
+            "final_handoff_canonical": {
+              "answer": "mixed",
+              "rationale": "The handoff is cleaner and more faithful than candidate-301, but still not canonical relative to the benchmark's full settled state."
+            },
+            "delegation_reliable": {
+              "answer": "yes",
+              "rationale": "It is more reliable than candidate-301 because it avoids asserting wrong specifics as settled policy."
+            },
+            "preserved_pda_spirit": {
+              "answer": "yes",
+              "rationale": "The run preserves the spirit of de-arbitrarization rather than drifting back to shallow implementation talk."
+            }
+          }
+        }
+      },
+      "score_path": "results/runs/interactive-pip/candidate-302/score-v2/evaluation.json",
       "score_is_v2_preferred": true
     }
   ]
