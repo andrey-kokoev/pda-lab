@@ -40,19 +40,22 @@ function collectRuns() {
     const candidates = listDirectories(benchmarkDir)
 
     for (const candidate of candidates) {
-      const scorePath = path.join(benchmarkDir, candidate, 'score', 'evaluation.json')
+      const scoreV2Path = path.join(benchmarkDir, candidate, 'score-v2', 'evaluation.json')
+      const scoreV1Path = path.join(benchmarkDir, candidate, 'score', 'evaluation.json')
+      const scorePath = fs.existsSync(scoreV2Path) ? scoreV2Path : scoreV1Path
       const manifestPath = path.join(benchmarkDir, candidate, 'manifest.json')
       const relativeScorePath = path.relative(ROOT, scorePath)
 
-      if (!fs.existsSync(scorePath)) continue
-
-      const validation = validateScore(relativeScorePath)
+      let validation = { ok: true, stdout: '', stderr: '' }
       let payload = null
       let manifest = null
       let readError = null
 
       try {
-        payload = readJson(scorePath)
+        if (fs.existsSync(scorePath)) {
+          validation = validateScore(relativeScorePath)
+          payload = readJson(scorePath)
+        }
         if (fs.existsSync(manifestPath)) {
           manifest = readJson(manifestPath)
         }
@@ -91,8 +94,8 @@ function interpretationRank(label) {
 
 function printBenchmarkSummary(benchmark, rows) {
   console.log(`\n## ${benchmark}`)
-  console.log('| Candidate | Kind | Source | Valid | Gates | Score | Interpretation |')
-  console.log('| --- | --- | --- | --- | --- | --- | --- |')
+  console.log('| Candidate | Rubric | Kind | Source | Valid | Gates | Score | Interpretation |')
+  console.log('| --- | --- | --- | --- | --- | --- | --- | --- |')
 
   const sorted = [...rows].sort((a, b) => {
     const aScore = a.payload?.totals?.overall ?? -1
@@ -104,18 +107,19 @@ function printBenchmarkSummary(benchmark, rows) {
   })
 
   for (const row of sorted) {
+    const rubricVersion = row.payload?.rubric_version ?? 'n/a'
     const kind = row.manifest?.run_kind ?? 'n/a'
     const source = row.manifest?.source_kind ?? 'n/a'
-    const valid = row.validation.ok && !row.readError ? 'yes' : 'no'
-    const gates = row.payload?.hard_gates?.passed === false ? 'failed' : 'passed'
+    const valid = row.payload ? (row.validation.ok && !row.readError ? 'yes' : 'no') : 'n/a'
+    const gates = row.payload ? (row.payload?.hard_gates?.passed === false ? 'failed' : 'passed') : 'n/a'
     const score = row.payload?.totals?.overall ?? 'n/a'
     const interpretation = row.payload?.totals?.interpretation ?? 'n/a'
-    console.log(`| ${row.candidate} | ${kind} | ${source} | ${valid} | ${gates} | ${score} | ${interpretation} |`)
+    console.log(`| ${row.candidate} | ${rubricVersion} | ${kind} | ${source} | ${valid} | ${gates} | ${score} | ${interpretation} |`)
   }
 }
 
 function printValidationProblems(rows) {
-  const invalid = rows.filter((row) => !row.validation.ok || row.readError)
+  const invalid = rows.filter((row) => row.payload && (!row.validation.ok || row.readError))
   if (invalid.length === 0) return
 
   console.log('\n## Validation Problems')
@@ -135,7 +139,7 @@ function main() {
   }
 
   console.log('# PDA Lab Run Summary')
-  console.log(`Generated from ${rows.length} run(s).`)
+  console.log(`Generated from ${rows.length} run slot(s).`)
 
   const byBenchmark = new Map()
   for (const row of rows) {

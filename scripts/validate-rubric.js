@@ -3,47 +3,103 @@
 const fs = require('fs')
 const path = require('path')
 
-const ALLOWED_GATE_VIOLATIONS = new Set([
-  'premature_implementation_with_tacit_policy',
-  'no_forced_vs_chosen_separation',
-  'skipped_option_resolution_when_required',
-  'premature_recomposition',
-  'collapsed_required_phase_structure',
-  'omitted_declared_irrelevancies_or_nongoals',
-])
-
-const INTERPRETATIONS = new Set([
-  'strong_pda_handoff',
-  'usable_but_leaky',
-  'weak_closure_needs_revision',
-  'poor_candidate',
-])
+const RUBRICS = {
+  'pda-handoff-v1': {
+    allowedGateViolations: new Set([
+      'premature_implementation_with_tacit_policy',
+      'no_forced_vs_chosen_separation',
+      'skipped_option_resolution_when_required',
+      'premature_recomposition',
+      'collapsed_required_phase_structure',
+      'omitted_declared_irrelevancies_or_nongoals',
+    ]),
+    interpretations: new Set([
+      'strong_pda_handoff',
+      'usable_but_leaky',
+      'weak_closure_needs_revision',
+      'poor_candidate',
+    ]),
+    phaseDimensions: {
+      descent: [
+        'ambiguity_localization',
+        'forced_vs_chosen_separation',
+        'question_discipline',
+        'non_premature_descent',
+        'optioning_readiness_discipline',
+      ],
+      option_resolution: [
+        'explicit_residual_policy',
+        'option_quality',
+        'default_quality',
+        'resolution_sufficiency',
+        'recursive_return_discipline',
+      ],
+      recomposition: [
+        'implementation_readiness',
+        'structural_fidelity',
+        'canonicality',
+        'delegation_reliability',
+        'declared_irrelevancies_and_nongoals',
+      ],
+    },
+    phaseMax: {
+      descent: 10,
+      option_resolution: 10,
+      recomposition: 10,
+    },
+    overallMax: 30,
+  },
+  'pda-handoff-v2': {
+    allowedGateViolations: new Set([
+      'premature_implementation_with_tacit_policy',
+      'no_forced_vs_chosen_separation',
+      'skipped_option_resolution_when_required',
+      'premature_recomposition',
+      'collapsed_required_phase_structure',
+      'omitted_declared_irrelevancies_or_nongoals',
+      'wrong_abstraction_level',
+    ]),
+    interpretations: new Set([
+      'strong_pda_handoff',
+      'usable_but_leaky',
+      'weak_closure_needs_revision',
+      'poor_candidate',
+    ]),
+    phaseDimensions: {
+      descent: [
+        'ambiguity_localization',
+        'abstraction_level_fidelity',
+        'forced_vs_chosen_separation',
+        'question_discipline',
+        'non_premature_descent',
+        'optioning_readiness_discipline',
+      ],
+      option_resolution: [
+        'explicit_residual_policy',
+        'option_quality',
+        'default_quality',
+        'resolution_sufficiency',
+        'recursive_return_discipline',
+      ],
+      recomposition: [
+        'implementation_readiness',
+        'abstraction_level_fidelity',
+        'structural_fidelity',
+        'canonicality',
+        'delegation_reliability',
+        'declared_irrelevancies_and_nongoals',
+      ],
+    },
+    phaseMax: {
+      descent: 12,
+      option_resolution: 10,
+      recomposition: 12,
+    },
+    overallMax: 34,
+  },
+}
 
 const HUMAN_ANSWERS = new Set(['yes', 'mixed', 'no'])
-
-const PHASE_DIMENSIONS = {
-  descent: [
-    'ambiguity_localization',
-    'forced_vs_chosen_separation',
-    'question_discipline',
-    'non_premature_descent',
-    'optioning_readiness_discipline',
-  ],
-  option_resolution: [
-    'explicit_residual_policy',
-    'option_quality',
-    'default_quality',
-    'resolution_sufficiency',
-    'recursive_return_discipline',
-  ],
-  recomposition: [
-    'implementation_readiness',
-    'structural_fidelity',
-    'canonicality',
-    'delegation_reliability',
-    'declared_irrelevancies_and_nongoals',
-  ],
-}
 
 function fail(errors, message) {
   errors.push(message)
@@ -89,9 +145,13 @@ function validate(filePath) {
     return ['Top-level value must be an object']
   }
 
-  if (data.rubric_version !== 'pda-handoff-v1') {
-    fail(errors, 'rubric_version must equal pda-handoff-v1')
+  const rubricVersion = data.rubric_version
+  const rubric = RUBRICS[rubricVersion]
+
+  if (!rubric) {
+    return [`rubric_version must be one of: ${Object.keys(RUBRICS).join(', ')}`]
   }
+
   if (typeof data.candidate_id !== 'string' || data.candidate_id.length === 0) {
     fail(errors, 'candidate_id must be a non-empty string')
   }
@@ -113,8 +173,8 @@ function validate(filePath) {
     } else {
       const seen = new Set()
       for (const violation of data.hard_gates.violations) {
-        if (!ALLOWED_GATE_VIOLATIONS.has(violation)) {
-          fail(errors, `unknown hard gate violation: ${violation}`)
+        if (!rubric.allowedGateViolations.has(violation)) {
+          fail(errors, `unknown hard gate violation for ${rubricVersion}: ${violation}`)
         }
         if (seen.has(violation)) {
           fail(errors, `duplicate hard gate violation: ${violation}`)
@@ -132,7 +192,7 @@ function validate(filePath) {
   if (!isObject(data.phase_scores)) {
     fail(errors, 'phase_scores must be an object')
   } else {
-    for (const [phase, dimensions] of Object.entries(PHASE_DIMENSIONS)) {
+    for (const [phase, dimensions] of Object.entries(rubric.phaseDimensions)) {
       const phaseValue = data.phase_scores[phase]
       if (!isObject(phaseValue)) {
         fail(errors, `phase_scores.${phase} must be an object`)
@@ -151,24 +211,25 @@ function validate(filePath) {
     fail(errors, 'totals must be an object')
   } else {
     const overall = Object.values(computedTotals).reduce((sum, value) => sum + value, 0)
-    for (const phase of Object.keys(PHASE_DIMENSIONS)) {
+    for (const phase of Object.keys(rubric.phaseDimensions)) {
       const total = data.totals[phase]
-      if (!Number.isInteger(total) || total < 0 || total > 10) {
-        fail(errors, `totals.${phase} must be an integer between 0 and 10`)
+      const max = rubric.phaseMax[phase]
+      if (!Number.isInteger(total) || total < 0 || total > max) {
+        fail(errors, `totals.${phase} must be an integer between 0 and ${max}`)
       } else if (computedTotals[phase] !== total) {
         fail(errors, `totals.${phase} must equal computed subtotal ${computedTotals[phase]}`)
       }
     }
-    if (!Number.isInteger(data.totals.overall) || data.totals.overall < 0 || data.totals.overall > 30) {
-      fail(errors, 'totals.overall must be an integer between 0 and 30')
+    if (!Number.isInteger(data.totals.overall) || data.totals.overall < 0 || data.totals.overall > rubric.overallMax) {
+      fail(errors, `totals.overall must be an integer between 0 and ${rubric.overallMax}`)
     } else if (data.totals.overall !== overall) {
       fail(errors, `totals.overall must equal computed total ${overall}`)
     }
     if ('phase_minimums_passed' in data.totals && typeof data.totals.phase_minimums_passed !== 'boolean') {
       fail(errors, 'totals.phase_minimums_passed must be a boolean when present')
     }
-    if ('interpretation' in data.totals && !INTERPRETATIONS.has(data.totals.interpretation)) {
-      fail(errors, 'totals.interpretation must be a valid interpretation label')
+    if ('interpretation' in data.totals && !rubric.interpretations.has(data.totals.interpretation)) {
+      fail(errors, `totals.interpretation must be a valid ${rubricVersion} interpretation label`)
     }
   }
 

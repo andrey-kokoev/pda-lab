@@ -1,0 +1,55 @@
+{
+  "rubric_version": "pda-handoff-v2",
+  "candidate_id": "candidate-001",
+  "benchmark_id": "interactive-pip",
+  "notes": "v2 rescore of the hand-authored PiP baseline, adding explicit abstraction-level fidelity.",
+  "hard_gates": {
+    "passed": true,
+    "violations": [],
+    "rationale": "No hard-gate violation observed. The run stays centered on interaction-policy semantics and resolves the decisive free-panel forks before recomposition."
+  },
+  "phase_scores": {
+    "descent": {
+      "ambiguity_localization": { "score": 2, "rationale": "Correctly localizes the task first to interaction semantics and then to free-panel policy." },
+      "abstraction_level_fidelity": { "score": 2, "rationale": "The trace stays at the governing abstraction level of interaction model and policy rather than collapsing into implementation diagnosis or layout scope." },
+      "forced_vs_chosen_separation": { "score": 2, "rationale": "Forced constraints and contingent policy are clearly separated." },
+      "question_discipline": { "score": 2, "rationale": "Questions are single and targeted at the active ambiguity layer." },
+      "non_premature_descent": { "score": 2, "rationale": "Does not move to recomposition until the key semantics are explicit." },
+      "optioning_readiness_discipline": { "score": 2, "rationale": "Only enters optioning when the active fork is explicit and concrete." }
+    },
+    "option_resolution": {
+      "explicit_residual_policy": { "score": 2, "rationale": "All material remaining interaction policy is made explicit." },
+      "option_quality": { "score": 2, "rationale": "Options are crisp and implementation-governing." },
+      "default_quality": { "score": 2, "rationale": "Defaults are plausible and converge toward the intended semantics." },
+      "resolution_sufficiency": { "score": 2, "rationale": "No material ambiguity remains by recomposition." },
+      "recursive_return_discipline": { "score": 2, "rationale": "Returns to descent when the first major choice reveals deeper semantic policy." }
+    },
+    "recomposition": {
+      "implementation_readiness": { "score": 2, "rationale": "Final handoff is directly actionable." },
+      "abstraction_level_fidelity": { "score": 2, "rationale": "The final handoff remains centered on the governing interaction-policy model rather than isolated implementation fixes." },
+      "structural_fidelity": { "score": 2, "rationale": "Preserves the semantic structure established in the trace." },
+      "canonicality": { "score": 2, "rationale": "The handoff is compact without losing governing distinctions." },
+      "delegation_reliability": { "score": 2, "rationale": "A competent worker-agent should implement the intended PiP behavior with little semantic drift." },
+      "declared_irrelevancies_and_nongoals": { "score": 2, "rationale": "Non-goals are explicit and bounded." }
+    }
+  },
+  "totals": {
+    "descent": 12,
+    "option_resolution": 10,
+    "recomposition": 12,
+    "overall": 34,
+    "phase_minimums_passed": true,
+    "interpretation": "strong_pda_handoff"
+  },
+  "human_review": {
+    "performed": true,
+    "summary": "v2 confirms that the PiP baseline succeeds by staying at the right abstraction level throughout.",
+    "questions": {
+      "removed_concealed_arbitrariness": { "answer": "yes", "rationale": "The decisive hidden forks are surfaced and resolved." },
+      "questions_necessary_and_well_timed": { "answer": "yes", "rationale": "Question timing tracks the active semantic ambiguity." },
+      "final_handoff_canonical": { "answer": "yes", "rationale": "The handoff is tightly reduced to the benchmark's core task shape." },
+      "delegation_reliable": { "answer": "yes", "rationale": "A worker-agent would be guided toward the intended behavior rather than a shallow fix." },
+      "preserved_pda_spirit": { "answer": "yes", "rationale": "The run remains de-arbitrarizing rather than merely helpful." }
+    }
+  }
+}

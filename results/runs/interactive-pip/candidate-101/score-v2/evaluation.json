@@ -1,0 +1,59 @@
+{
+  "rubric_version": "pda-handoff-v2",
+  "candidate_id": "candidate-101",
+  "benchmark_id": "interactive-pip",
+  "notes": "v2 rescore of the externally sourced PiP candidate, making abstraction-level failure explicit.",
+  "hard_gates": {
+    "passed": false,
+    "violations": [
+      "skipped_option_resolution_when_required",
+      "premature_recomposition",
+      "wrong_abstraction_level"
+    ],
+    "rationale": "The response performs a competent review and identifies a concrete fix, but remains centered on implementation diagnosis rather than the benchmark's governing interaction-policy ambiguity."
+  },
+  "phase_scores": {
+    "descent": {
+      "ambiguity_localization": { "score": 1, "rationale": "It localizes a real implementation issue, but not the governing interaction-policy problem." },
+      "abstraction_level_fidelity": { "score": 0, "rationale": "The trace operates at the wrong abstraction level: implementation diagnosis and CSS conflict instead of the benchmark's interaction semantics and policy." },
+      "forced_vs_chosen_separation": { "score": 1, "rationale": "It distinguishes current issues from optional improvements, but not forced structure from contingent policy." },
+      "question_discipline": { "score": 1, "rationale": "The review is orderly, but it does not ask the question that would constrain the semantic space." },
+      "non_premature_descent": { "score": 1, "rationale": "Some inspection occurs before recommendations, but the response settles on a fix path before clarifying the key semantic model." },
+      "optioning_readiness_discipline": { "score": 0, "rationale": "No explicit choice point is formed around the benchmark's central policy forks." }
+    },
+    "option_resolution": {
+      "explicit_residual_policy": { "score": 0, "rationale": "Free-panel vs video-object semantics, persistence, gesture ownership, hit zones, and click suppression remain implicit." },
+      "option_quality": { "score": 1, "rationale": "The response includes optional improvements, but not as clean alternatives to the decisive ambiguity." },
+      "default_quality": { "score": 1, "rationale": "The recommended CSS fix is plausible on its own terms, but not grounded in a resolved semantic model." },
+      "resolution_sufficiency": { "score": 0, "rationale": "The proposed fix does not resolve the benchmark's core hidden ambiguity." },
+      "recursive_return_discipline": { "score": 0, "rationale": "The response does not return to deeper descent when review findings reveal a broader semantic problem space." }
+    },
+    "recomposition": {
+      "implementation_readiness": { "score": 1, "rationale": "A worker could make the proposed CSS edit, but would still lack the intended interaction semantics." },
+      "abstraction_level_fidelity": { "score": 0, "rationale": "The final handoff remains at the level of wiring and CSS correction rather than the benchmark's governing interaction-policy model." },
+      "structural_fidelity": { "score": 0, "rationale": "The final handoff loses the semantic structure around free-panel behavior that the benchmark requires." },
+      "canonicality": { "score": 1, "rationale": "The handoff is organized and specific, but specific to the wrong level of the problem." },
+      "delegation_reliability": { "score": 1, "rationale": "A worker would reliably apply the CSS fix, but that reliability is not enough for the benchmark's intended outcome." },
+      "declared_irrelevancies_and_nongoals": { "score": 0, "rationale": "No explicit non-goals or declared irrelevancies are stated." }
+    }
+  },
+  "totals": {
+    "descent": 4,
+    "option_resolution": 2,
+    "recomposition": 3,
+    "overall": 9,
+    "phase_minimums_passed": false,
+    "interpretation": "poor_candidate"
+  },
+  "human_review": {
+    "performed": true,
+    "summary": "v2 makes the central failure explicit: the response is technically competent, but at the wrong abstraction level for the benchmark.",
+    "questions": {
+      "removed_concealed_arbitrariness": { "answer": "no", "rationale": "It surfaces a concrete issue, but not the hidden arbitrariness that mattered most." },
+      "questions_necessary_and_well_timed": { "answer": "no", "rationale": "The response does not use question-driven narrowing at the decisive semantic layer." },
+      "final_handoff_canonical": { "answer": "no", "rationale": "The handoff is neat, but centered on a shallow diagnosis rather than the benchmark's resolved semantics." },
+      "delegation_reliable": { "answer": "mixed", "rationale": "Reliable for applying the proposed fix, not for producing the intended benchmark-level behavior." },
+      "preserved_pda_spirit": { "answer": "no", "rationale": "It reviews and recommends well, but does not descend to the governing ambiguity before recomposition." }
+    }
+  }
+}

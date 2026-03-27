@@ -11,6 +11,15 @@ This repo exists to:
 - run comparative evaluation loops
 - preserve results from optimization runs
 
+## Current Scoring Policy
+
+- `rubrics/pda-handoff-v1` remains the historical scoring frame for existing runs
+- `rubrics/pda-handoff-v2` is the forward scoring frame for optimizer work
+
+Why `v2`:
+- the strongest empirical failure mode so far is not incoherence, but answering at the wrong abstraction level
+- `v2` makes abstraction-level fidelity explicit in scoring and hard-gate language
+
 ## Initial Structure
 
 - `artifacts/` candidate prompts, spells, and handoff templates

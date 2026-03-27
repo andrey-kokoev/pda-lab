@@ -1,0 +1,55 @@
+{
+  "rubric_version": "pda-handoff-v2",
+  "candidate_id": "candidate-301",
+  "benchmark_id": "interactive-pip",
+  "notes": "First LM-backed DSPy/Kimi candidate for the interactive PiP benchmark. It stays at the correct semantic layer and produces a real interaction spec, but it drifts from benchmark-faithful policy values and narrows scope incorrectly.",
+  "hard_gates": {
+    "passed": true,
+    "violations": [],
+    "rationale": "No hard-gate violation observed. The run does not collapse into implementation review, and it explicitly shapes the governing interaction semantics before recomposition. Its weakness is policy fidelity, not abstraction-level failure."
+  },
+  "phase_scores": {
+    "descent": {
+      "ambiguity_localization": { "score": 2, "rationale": "It correctly localizes the live ambiguity to PiP interaction semantics rather than code wiring alone." },
+      "abstraction_level_fidelity": { "score": 2, "rationale": "The trace stays at the right abstraction level, centered on object model, persistence, hit zones, gesture ownership, and bounds." },
+      "forced_vs_chosen_separation": { "score": 2, "rationale": "It separates the need for explicit gesture semantics from contingent policy choices like hit-zone geometry and thresholding." },
+      "question_discipline": { "score": 2, "rationale": "The surfaced questions are focused and move the formulation toward a usable interaction model." },
+      "non_premature_descent": { "score": 2, "rationale": "It does not jump into file edits or implementation review before shaping the semantic structure." },
+      "optioning_readiness_discipline": { "score": 1, "rationale": "It identifies the right policy loci, but tends to resolve them directly rather than holding a clearer explicit option phase." }
+    },
+    "option_resolution": {
+      "explicit_residual_policy": { "score": 1, "rationale": "Some major policy decisions are explicit, but key benchmark-specific choices are either invented or compressed into assertions." },
+      "option_quality": { "score": 1, "rationale": "The option structure is usable conceptually, but the resulting chosen values diverge from the benchmark's settled policy." },
+      "default_quality": { "score": 1, "rationale": "Defaults are coherent generically, but several are wrong for this benchmark: threshold, min/max sizing, hit-zone proportions, and desktop-only scope." },
+      "resolution_sufficiency": { "score": 1, "rationale": "The run reaches a coherent spec, but not one faithful enough to the benchmark's intended closure state." },
+      "recursive_return_discipline": { "score": 1, "rationale": "There is staged shaping, but little explicit recursive return once concrete policy values are being chosen." }
+    },
+    "recomposition": {
+      "implementation_readiness": { "score": 2, "rationale": "A worker-agent could implement the handoff directly." },
+      "abstraction_level_fidelity": { "score": 2, "rationale": "The final handoff remains a genuine interaction-spec handoff rather than falling back to code review or generic UI advice." },
+      "structural_fidelity": { "score": 1, "rationale": "It preserves the right semantic categories, but not the benchmark's settled policy details or cross-platform scope." },
+      "canonicality": { "score": 2, "rationale": "The handoff is compact and structurally clear." },
+      "delegation_reliability": { "score": 1, "rationale": "Execution would likely be coherent, but would drift materially from the intended benchmark outcome because of wrong chosen values and narrowed scope." },
+      "declared_irrelevancies_and_nongoals": { "score": 1, "rationale": "It does declare some out-of-scope items, but incorrectly excludes touch/mobile behavior and does not align non-goals tightly to the benchmark." }
+    }
+  },
+  "totals": {
+    "descent": 11,
+    "option_resolution": 5,
+    "recomposition": 9,
+    "overall": 25,
+    "phase_minimums_passed": true,
+    "interpretation": "usable_but_leaky"
+  },
+  "human_review": {
+    "performed": true,
+    "summary": "This candidate clears the main abstraction-level hurdle that defeated the earlier external PiP run, but it still substitutes plausible generic policy for the benchmark's actual chosen policy. It is semantically serious, but benchmark-faithfulness is only partial.",
+    "questions": {
+      "removed_concealed_arbitrariness": { "answer": "mixed", "rationale": "It surfaces the main hidden semantic structure, but some residual policy is resolved by invention rather than faithful closure." },
+      "questions_necessary_and_well_timed": { "answer": "yes", "rationale": "The sequence of questions is good and tracks the interaction problem closely." },
+      "final_handoff_canonical": { "answer": "mixed", "rationale": "The handoff is clean, but not canonical relative to the benchmark's actual settled policy set." },
+      "delegation_reliable": { "answer": "mixed", "rationale": "A worker-agent would build something coherent, but not the intended PiP semantics without further correction." },
+      "preserved_pda_spirit": { "answer": "yes", "rationale": "The run genuinely de-arbitrarizes the task instead of merely answering at the implementation layer." }
+    }
+  }
+}

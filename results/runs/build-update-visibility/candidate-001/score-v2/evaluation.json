@@ -1,0 +1,55 @@
+{
+  "rubric_version": "pda-handoff-v2",
+  "candidate_id": "candidate-001",
+  "benchmark_id": "build-update-visibility",
+  "notes": "v2 rescore of the hand-authored baseline, adding explicit abstraction-level fidelity.",
+  "hard_gates": {
+    "passed": true,
+    "violations": [],
+    "rationale": "No hard-gate violation observed. The run stays centered on build/update-state legibility and resolves the decisive product forks before recomposition."
+  },
+  "phase_scores": {
+    "descent": {
+      "ambiguity_localization": { "score": 2, "rationale": "Correctly localizes ambiguity first to legible product state and then to placement/prominence." },
+      "abstraction_level_fidelity": { "score": 2, "rationale": "The trace stays at the governing abstraction level of build/update-state legibility rather than collapsing into generic diagnostics or deploy-time display." },
+      "forced_vs_chosen_separation": { "score": 2, "rationale": "Forced needs and contingent UI/product choices are clearly separated." },
+      "question_discipline": { "score": 2, "rationale": "Questions are single and tightly scoped." },
+      "non_premature_descent": { "score": 2, "rationale": "Does not jump to a widget before shaping the task." },
+      "optioning_readiness_discipline": { "score": 2, "rationale": "Only enters optioning after the active fork is explicit." }
+    },
+    "option_resolution": {
+      "explicit_residual_policy": { "score": 2, "rationale": "All material remaining product/UI policy is explicit." },
+      "option_quality": { "score": 2, "rationale": "Options are crisp and decision-relevant." },
+      "default_quality": { "score": 2, "rationale": "Defaults are plausible and converge toward the benchmark's intended outcome." },
+      "resolution_sufficiency": { "score": 2, "rationale": "No material ambiguity remains by recomposition." },
+      "recursive_return_discipline": { "score": 2, "rationale": "Returns to descent when the first choice reveals deeper placement ambiguity." }
+    },
+    "recomposition": {
+      "implementation_readiness": { "score": 2, "rationale": "Final handoff is directly actionable." },
+      "abstraction_level_fidelity": { "score": 2, "rationale": "The final handoff remains centered on build/update-state legibility, not merely deploy-time display." },
+      "structural_fidelity": { "score": 2, "rationale": "Preserves build/update-state identity, placement, and prominence decisions." },
+      "canonicality": { "score": 2, "rationale": "Final handoff is compact and avoids irrelevant flourish." },
+      "delegation_reliability": { "score": 2, "rationale": "A competent worker-agent should execute with little semantic drift." },
+      "declared_irrelevancies_and_nongoals": { "score": 2, "rationale": "Non-goals are explicit and bounded." }
+    }
+  },
+  "totals": {
+    "descent": 12,
+    "option_resolution": 10,
+    "recomposition": 12,
+    "overall": 34,
+    "phase_minimums_passed": true,
+    "interpretation": "strong_pda_handoff"
+  },
+  "human_review": {
+    "performed": true,
+    "summary": "v2 confirms that the baseline succeeds not just by structure, but by staying at the right abstraction level throughout.",
+    "questions": {
+      "removed_concealed_arbitrariness": { "answer": "yes", "rationale": "The decisive hidden forks are surfaced and resolved." },
+      "questions_necessary_and_well_timed": { "answer": "yes", "rationale": "Question timing tracks the live ambiguity closely." },
+      "final_handoff_canonical": { "answer": "yes", "rationale": "The handoff is tightly reduced to the benchmark's core task shape." },
+      "delegation_reliable": { "answer": "yes", "rationale": "A worker-agent would be guided toward the intended implementation outcome." },
+      "preserved_pda_spirit": { "answer": "yes", "rationale": "The run remains de-arbitrarizing rather than merely helpful." }
+    }
+  }
+}

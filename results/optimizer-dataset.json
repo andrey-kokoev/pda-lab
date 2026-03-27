@@ -1,0 +1,907 @@
+{
+  "generated_at": "2026-03-27T02:21:26.657Z",
+  "forward_rubric": "pda-handoff-v2",
+  "historical_rubric": "pda-handoff-v1",
+  "benchmarks": [
+    {
+      "benchmark_id": "build-update-visibility",
+      "raw_task": "# Raw Task\n\nFor our app, it is difficult to know if mobile is cached or is refreshed. What are coherent options to fix it? Last time of deploy?\n\nThis should remain close to the original user wording rather than a normalized product brief.\n",
+      "reference_closed_formulation": "# Reference Closed Formulation\n\nTarget closure for this benchmark:\n\n- The problem is not merely “show deploy time”; it is making the currently running client build legible.\n- The user-visible need is strongest on the landing view, not in-call UI.\n- The solution should distinguish:\n  - current build identity\n  - latest available build identity\n  - whether refresh is needed\n- Status display should be low-weight, non-modal, and product-coherent.\n- The handoff should avoid overbuilding diagnostics into call views.\n\nThe benchmark should reward traces that shape the task before implementation rather than jumping straight to a badge/banner widget.\n",
+      "expected_policy_questions": "# Expected Policy Questions\n\nA strong PDA trace should make some version of these decision points explicit:\n\n1. Is the goal build identity, update availability, deploy time, or all three?\n2. Where in the product should this state be shown?\n3. How prominent should the UI be in steady state?\n4. Is call-view placement coherent, or should it be restricted to landing/diagnostics?\n5. What counts as enough information to know whether the client is stale?\n",
+      "validation_criteria": "# Validation Criteria\n\n- Final handoff correctly reframes the problem as build/update-state visibility rather than just deploy timestamp display.\n- UI placement and prominence are made explicit before implementation.\n- Resulting implementation is coherent with product context and avoids modal/badge overstatement.\n- Validation can check for current-build metadata, update detection, and landing-view-only presentation.\n",
+      "baseline": "# Baseline\n\n- Repo: `telesense`\n- Baseline reference: commit immediately before the build/update-visibility thread used for this benchmark\n- Purpose: freeze the codebase state before feature shaping and implementation\n\nPopulate the exact commit SHA when the benchmark is finalized.\n"
+    },
+    {
+      "benchmark_id": "interactive-pip",
+      "raw_task": "# Raw Task\n\nReview current changes in repo `telesense`.\n\nThen:\n- determine whether desktop PiP drag/resize behavior is actually wired up\n- complete the wiring\n- fix the issues found in review\n\nThis entry point should stay close to the original messy conversational start, without pre-cleaning hidden policy.\n",
+      "reference_closed_formulation": "# Reference Closed Formulation\n\nTarget closure for this benchmark:\n\n- PiP is modeled as a free panel, not an aspect-preserving video object.\n- Geometry is a bounded rectangle inside the containing video region.\n- Input ownership belongs to the PiP once an active gesture starts.\n- Gesture semantics are explicit:\n  - center moves\n  - edges resize one axis\n  - corners resize two axes\n- Hit zones are disjoint and proportional.\n- Persistence uses normalized top-left origin plus normalized width/height.\n- Recomposition is allowed only after remaining policy is forced, explicitly chosen, or irrelevant.\n\nThe benchmark should reward handoffs that surface and settle these policy decisions before implementation.\n",
+      "expected_policy_questions": "# Expected Policy Questions\n\nA strong PDA trace should make some version of these decision points explicit:\n\n1. Is PiP a free panel or a video-shaped object?\n2. What persists across resize/remount?\n3. What hit-zone semantics define move vs edge resize vs corner resize?\n4. How is click suppressed after drag/resize?\n5. Who owns the gesture during active interaction?\n6. What counts as sufficient closure before implementation proceeds?\n",
+      "validation_criteria": "# Validation Criteria\n\n- Final handoff is implementation-ready.\n- Hidden interaction policy is made explicit before coding.\n- Remaining freedom is either chosen or declared irrelevant.\n- Resulting implementation can be reviewed against bounded geometry, pointer ownership, and reset/persistence semantics.\n",
+      "baseline": "# Baseline\n\n- Repo: `telesense`\n- Baseline reference: commit immediately before the interactive PiP thread used for this benchmark\n- Purpose: freeze the codebase state before PDA-guided clarification and implementation\n\nPopulate the exact commit SHA when the benchmark is finalized.\n"
+    }
+  ],
+  "runs": [
+    {
+      "benchmark_id": "build-update-visibility",
+      "candidate_id": "candidate-001",
+      "manifest": {
+        "benchmark_id": "build-update-visibility",
+        "candidate_id": "candidate-001",
+        "candidate_artifact": "artifacts/pda-handoff-template-v1",
+        "run_kind": "baseline",
+        "source_kind": "hand_authored",
+        "summary": "Hand-authored baseline run using the current PDA handoff template.",
+        "notes": "Reference run for the build/update benchmark."
+      },
+      "score": {
+        "rubric_version": "pda-handoff-v2",
+        "candidate_id": "candidate-001",
+        "benchmark_id": "build-update-visibility",
+        "notes": "v2 rescore of the hand-authored baseline, adding explicit abstraction-level fidelity.",
+        "hard_gates": {
+          "passed": true,
+          "violations": [],
+          "rationale": "No hard-gate violation observed. The run stays centered on build/update-state legibility and resolves the decisive product forks before recomposition."
+        },
+        "phase_scores": {
+          "descent": {
+            "ambiguity_localization": {
+              "score": 2,
+              "rationale": "Correctly localizes ambiguity first to legible product state and then to placement/prominence."
+            },
+            "abstraction_level_fidelity": {
+              "score": 2,
+              "rationale": "The trace stays at the governing abstraction level of build/update-state legibility rather than collapsing into generic diagnostics or deploy-time display."
+            },
+            "forced_vs_chosen_separation": {
+              "score": 2,
+              "rationale": "Forced needs and contingent UI/product choices are clearly separated."
+            },
+            "question_discipline": {
+              "score": 2,
+              "rationale": "Questions are single and tightly scoped."
+            },
+            "non_premature_descent": {
+              "score": 2,
+              "rationale": "Does not jump to a widget before shaping the task."
+            },
+            "optioning_readiness_discipline": {
+              "score": 2,
+              "rationale": "Only enters optioning after the active fork is explicit."
+            }
+          },
+          "option_resolution": {
+            "explicit_residual_policy": {
+              "score": 2,
+              "rationale": "All material remaining product/UI policy is explicit."
+            },
+            "option_quality": {
+              "score": 2,
+              "rationale": "Options are crisp and decision-relevant."
+            },
+            "default_quality": {
+              "score": 2,
+              "rationale": "Defaults are plausible and converge toward the benchmark's intended outcome."
+            },
+            "resolution_sufficiency": {
+              "score": 2,
+              "rationale": "No material ambiguity remains by recomposition."
+            },
+            "recursive_return_discipline": {
+              "score": 2,
+              "rationale": "Returns to descent when the first choice reveals deeper placement ambiguity."
+            }
+          },
+          "recomposition": {
+            "implementation_readiness": {
+              "score": 2,
+              "rationale": "Final handoff is directly actionable."
+            },
+            "abstraction_level_fidelity": {
+              "score": 2,
+              "rationale": "The final handoff remains centered on build/update-state legibility, not merely deploy-time display."
+            },
+            "structural_fidelity": {
+              "score": 2,
+              "rationale": "Preserves build/update-state identity, placement, and prominence decisions."
+            },
+            "canonicality": {
+              "score": 2,
+              "rationale": "Final handoff is compact and avoids irrelevant flourish."
+            },
+            "delegation_reliability": {
+              "score": 2,
+              "rationale": "A competent worker-agent should execute with little semantic drift."
+            },
+            "declared_irrelevancies_and_nongoals": {
+              "score": 2,
+              "rationale": "Non-goals are explicit and bounded."
+            }
+          }
+        },
+        "totals": {
+          "descent": 12,
+          "option_resolution": 10,
+          "recomposition": 12,
+          "overall": 34,
+          "phase_minimums_passed": true,
+          "interpretation": "strong_pda_handoff"
+        },
+        "human_review": {
+          "performed": true,
+          "summary": "v2 confirms that the baseline succeeds not just by structure, but by staying at the right abstraction level throughout.",
+          "questions": {
+            "removed_concealed_arbitrariness": {
+              "answer": "yes",
+              "rationale": "The decisive hidden forks are surfaced and resolved."
+            },
+            "questions_necessary_and_well_timed": {
+              "answer": "yes",
+              "rationale": "Question timing tracks the live ambiguity closely."
+            },
+            "final_handoff_canonical": {
+              "answer": "yes",
+              "rationale": "The handoff is tightly reduced to the benchmark's core task shape."
+            },
+            "delegation_reliable": {
+              "answer": "yes",
+              "rationale": "A worker-agent would be guided toward the intended implementation outcome."
+            },
+            "preserved_pda_spirit": {
+              "answer": "yes",
+              "rationale": "The run remains de-arbitrarizing rather than merely helpful."
+            }
+          }
+        }
+      },
+      "score_path": "results/runs/build-update-visibility/candidate-001/score-v2/evaluation.json",
+      "score_is_v2_preferred": true
+    },
+    {
+      "benchmark_id": "build-update-visibility",
+      "candidate_id": "candidate-002",
+      "manifest": {
+        "benchmark_id": "build-update-visibility",
+        "candidate_id": "candidate-002",
+        "candidate_artifact": "none",
+        "run_kind": "adversarial",
+        "source_kind": "synthetic_adversarial",
+        "summary": "Polished but misframed run centered on deploy-time visibility rather than build/update-state legibility.",
+        "notes": "Used to test rejection of product-coherent but wrong-centered traces."
+      },
+      "score": {
+        "rubric_version": "pda-handoff-v1",
+        "candidate_id": "candidate-002",
+        "benchmark_id": "build-update-visibility",
+        "notes": "Polished but misframed comparison run.",
+        "hard_gates": {
+          "passed": false,
+          "violations": [
+            "skipped_option_resolution_when_required",
+            "premature_recomposition"
+          ],
+          "rationale": "The run never makes current-build identity or update availability explicit, and recomposes while the benchmark's core state-legibility ambiguity remains hidden."
+        },
+        "phase_scores": {
+          "descent": {
+            "ambiguity_localization": {
+              "score": 1,
+              "rationale": "The run localizes a real UI/product ambiguity, but misframes the core task as deploy-time display rather than build/update-state legibility."
+            },
+            "forced_vs_chosen_separation": {
+              "score": 2,
+              "rationale": "Within the misframed task, constraints and choices are clearly separated."
+            },
+            "question_discipline": {
+              "score": 2,
+              "rationale": "The question is single and well formed, though aimed at the wrong center."
+            },
+            "non_premature_descent": {
+              "score": 1,
+              "rationale": "Some descent occurs, but it stops before surfacing the decisive product-state distinctions."
+            },
+            "optioning_readiness_discipline": {
+              "score": 1,
+              "rationale": "Optioning is structurally clean, but begins from a mislocalized ambiguity."
+            }
+          },
+          "option_resolution": {
+            "explicit_residual_policy": {
+              "score": 0,
+              "rationale": "Key choices about build identity and update availability remain implicit."
+            },
+            "option_quality": {
+              "score": 2,
+              "rationale": "Options are crisp within the misframed problem."
+            },
+            "default_quality": {
+              "score": 2,
+              "rationale": "The default is product-coherent on its own terms."
+            },
+            "resolution_sufficiency": {
+              "score": 0,
+              "rationale": "Placement alone does not resolve the benchmark's decisive ambiguity."
+            },
+            "recursive_return_discipline": {
+              "score": 0,
+              "rationale": "The run does not return to descent despite unresolved state-legibility ambiguity."
+            }
+          },
+          "recomposition": {
+            "implementation_readiness": {
+              "score": 1,
+              "rationale": "A worker could implement something, but it would be the wrong thing for the benchmark."
+            },
+            "structural_fidelity": {
+              "score": 0,
+              "rationale": "The handoff loses the distinction between deploy time and build/update-state visibility."
+            },
+            "canonicality": {
+              "score": 2,
+              "rationale": "The final handoff is compact and coherent in form."
+            },
+            "delegation_reliability": {
+              "score": 0,
+              "rationale": "The worker would execute a misframed task reliably, which is still benchmark failure."
+            },
+            "declared_irrelevancies_and_nongoals": {
+              "score": 1,
+              "rationale": "Non-goals are stated, but they do not bound the missing decisive ambiguity."
+            }
+          }
+        },
+        "totals": {
+          "descent": 7,
+          "option_resolution": 4,
+          "recomposition": 4,
+          "overall": 15,
+          "phase_minimums_passed": false,
+          "interpretation": "poor_candidate"
+        },
+        "human_review": {
+          "performed": false,
+          "summary": "",
+          "questions": {}
+        }
+      },
+      "score_path": "results/runs/build-update-visibility/candidate-002/score/evaluation.json",
+      "score_is_v2_preferred": false
+    },
+    {
+      "benchmark_id": "build-update-visibility",
+      "candidate_id": "candidate-101",
+      "manifest": {
+        "benchmark_id": "build-update-visibility",
+        "candidate_id": "candidate-101",
+        "candidate_artifact": "external-input-package",
+        "run_kind": "external",
+        "source_kind": "external_model",
+        "summary": "Prepared slot for the first externally sourced candidate run.",
+        "notes": "Trace, handoff, and score should be added verbatim from the external source before evaluation."
+      },
+      "score": {
+        "rubric_version": "pda-handoff-v2",
+        "candidate_id": "candidate-101",
+        "benchmark_id": "build-update-visibility",
+        "notes": "v2 rescore of the externally sourced candidate, making abstraction-level failure explicit.",
+        "hard_gates": {
+          "passed": false,
+          "violations": [
+            "skipped_option_resolution_when_required",
+            "premature_recomposition",
+            "wrong_abstraction_level"
+          ],
+          "rationale": "The response surveys options and recommends a bundle, but never isolates the benchmark's governing fork and remains centered on generic diagnostics rather than build/update-state legibility."
+        },
+        "phase_scores": {
+          "descent": {
+            "ambiguity_localization": {
+              "score": 1,
+              "rationale": "It recognizes the freshness/caching problem, but only loosely localizes the product ambiguity."
+            },
+            "abstraction_level_fidelity": {
+              "score": 0,
+              "rationale": "The trace operates at the wrong abstraction level: generic app diagnostics and support tooling instead of the benchmark's build/update-state legibility problem."
+            },
+            "forced_vs_chosen_separation": {
+              "score": 1,
+              "rationale": "Pros/cons are discussed, but forced structure and contingent policy are not cleanly separated."
+            },
+            "question_discipline": {
+              "score": 1,
+              "rationale": "It explores several options, but broadens rather than localizes the live ambiguity."
+            },
+            "non_premature_descent": {
+              "score": 1,
+              "rationale": "There is some exploration, but it settles on a recommendation before clarifying the key product-state and placement questions."
+            },
+            "optioning_readiness_discipline": {
+              "score": 0,
+              "rationale": "Options are enumerated at mixed layers before a concrete choice point is isolated."
+            }
+          },
+          "option_resolution": {
+            "explicit_residual_policy": {
+              "score": 0,
+              "rationale": "The core choice between deploy time, build identity, and update availability never becomes explicit."
+            },
+            "option_quality": {
+              "score": 1,
+              "rationale": "Listed options are sensible generally, but mix diagnostics, prevention, and UI surfacing in one plane."
+            },
+            "default_quality": {
+              "score": 1,
+              "rationale": "The multi-layer recommendation is plausible generally, but not centered on this benchmark."
+            },
+            "resolution_sufficiency": {
+              "score": 0,
+              "rationale": "The recommendation leaves the decisive benchmark ambiguity unresolved."
+            },
+            "recursive_return_discipline": {
+              "score": 0,
+              "rationale": "The response does not return to a deeper descent after broad option exploration reveals placement and audience questions."
+            }
+          },
+          "recomposition": {
+            "implementation_readiness": {
+              "score": 1,
+              "rationale": "A worker could implement something from the handoff, but likely the wrong shape for this benchmark."
+            },
+            "abstraction_level_fidelity": {
+              "score": 0,
+              "rationale": "The final handoff remains at the level of generic diagnostics and settings/about instrumentation rather than the benchmark's intended product state legibility."
+            },
+            "structural_fidelity": {
+              "score": 0,
+              "rationale": "The final handoff does not preserve the distinction between current build identity, update availability, and deploy-time support metadata."
+            },
+            "canonicality": {
+              "score": 1,
+              "rationale": "The handoff is organized, but carries extra generic recommendations not canonically shaped to the benchmark."
+            },
+            "delegation_reliability": {
+              "score": 1,
+              "rationale": "Execution would be reliable in a generic app-support sense, but likely drift from the intended outcome."
+            },
+            "declared_irrelevancies_and_nongoals": {
+              "score": 0,
+              "rationale": "No explicit non-goals or declared irrelevancies are stated."
+            }
+          }
+        },
+        "totals": {
+          "descent": 4,
+          "option_resolution": 2,
+          "recomposition": 3,
+          "overall": 9,
+          "phase_minimums_passed": false,
+          "interpretation": "poor_candidate"
+        },
+        "human_review": {
+          "performed": true,
+          "summary": "v2 makes the main failure explicit: the response is competent, but at the wrong abstraction level for the benchmark.",
+          "questions": {
+            "removed_concealed_arbitrariness": {
+              "answer": "no",
+              "rationale": "It surfaces possibilities, but not the hidden arbitrariness that mattered for this benchmark."
+            },
+            "questions_necessary_and_well_timed": {
+              "answer": "mixed",
+              "rationale": "The closing clarification questions are reasonable, but they arrive after a bundled recommendation."
+            },
+            "final_handoff_canonical": {
+              "answer": "no",
+              "rationale": "The final handoff is organized but not reduced to the benchmark's core task shape."
+            },
+            "delegation_reliable": {
+              "answer": "mixed",
+              "rationale": "Reliable for a generic diagnostic feature, not for the intended benchmark outcome."
+            },
+            "preserved_pda_spirit": {
+              "answer": "no",
+              "rationale": "It explores options helpfully, but does not descend to the governing ambiguity before recomposition."
+            }
+          }
+        }
+      },
+      "score_path": "results/runs/build-update-visibility/candidate-101/score-v2/evaluation.json",
+      "score_is_v2_preferred": true
+    },
+    {
+      "benchmark_id": "interactive-pip",
+      "candidate_id": "candidate-001",
+      "manifest": {
+        "benchmark_id": "interactive-pip",
+        "candidate_id": "candidate-001",
+        "candidate_artifact": "artifacts/pda-handoff-template-v1",
+        "run_kind": "baseline",
+        "source_kind": "hand_authored",
+        "summary": "Hand-authored baseline run using the current PDA handoff template.",
+        "notes": "Strong reference run; likely self-confirming if used alone."
+      },
+      "score": {
+        "rubric_version": "pda-handoff-v2",
+        "candidate_id": "candidate-001",
+        "benchmark_id": "interactive-pip",
+        "notes": "v2 rescore of the hand-authored PiP baseline, adding explicit abstraction-level fidelity.",
+        "hard_gates": {
+          "passed": true,
+          "violations": [],
+          "rationale": "No hard-gate violation observed. The run stays centered on interaction-policy semantics and resolves the decisive free-panel forks before recomposition."
+        },
+        "phase_scores": {
+          "descent": {
+            "ambiguity_localization": {
+              "score": 2,
+              "rationale": "Correctly localizes the task first to interaction semantics and then to free-panel policy."
+            },
+            "abstraction_level_fidelity": {
+              "score": 2,
+              "rationale": "The trace stays at the governing abstraction level of interaction model and policy rather than collapsing into implementation diagnosis or layout scope."
+            },
+            "forced_vs_chosen_separation": {
+              "score": 2,
+              "rationale": "Forced constraints and contingent policy are clearly separated."
+            },
+            "question_discipline": {
+              "score": 2,
+              "rationale": "Questions are single and targeted at the active ambiguity layer."
+            },
+            "non_premature_descent": {
+              "score": 2,
+              "rationale": "Does not move to recomposition until the key semantics are explicit."
+            },
+            "optioning_readiness_discipline": {
+              "score": 2,
+              "rationale": "Only enters optioning when the active fork is explicit and concrete."
+            }
+          },
+          "option_resolution": {
+            "explicit_residual_policy": {
+              "score": 2,
+              "rationale": "All material remaining interaction policy is made explicit."
+            },
+            "option_quality": {
+              "score": 2,
+              "rationale": "Options are crisp and implementation-governing."
+            },
+            "default_quality": {
+              "score": 2,
+              "rationale": "Defaults are plausible and converge toward the intended semantics."
+            },
+            "resolution_sufficiency": {
+              "score": 2,
+              "rationale": "No material ambiguity remains by recomposition."
+            },
+            "recursive_return_discipline": {
+              "score": 2,
+              "rationale": "Returns to descent when the first major choice reveals deeper semantic policy."
+            }
+          },
+          "recomposition": {
+            "implementation_readiness": {
+              "score": 2,
+              "rationale": "Final handoff is directly actionable."
+            },
+            "abstraction_level_fidelity": {
+              "score": 2,
+              "rationale": "The final handoff remains centered on the governing interaction-policy model rather than isolated implementation fixes."
+            },
+            "structural_fidelity": {
+              "score": 2,
+              "rationale": "Preserves the semantic structure established in the trace."
+            },
+            "canonicality": {
+              "score": 2,
+              "rationale": "The handoff is compact without losing governing distinctions."
+            },
+            "delegation_reliability": {
+              "score": 2,
+              "rationale": "A competent worker-agent should implement the intended PiP behavior with little semantic drift."
+            },
+            "declared_irrelevancies_and_nongoals": {
+              "score": 2,
+              "rationale": "Non-goals are explicit and bounded."
+            }
+          }
+        },
+        "totals": {
+          "descent": 12,
+          "option_resolution": 10,
+          "recomposition": 12,
+          "overall": 34,
+          "phase_minimums_passed": true,
+          "interpretation": "strong_pda_handoff"
+        },
+        "human_review": {
+          "performed": true,
+          "summary": "v2 confirms that the PiP baseline succeeds by staying at the right abstraction level throughout.",
+          "questions": {
+            "removed_concealed_arbitrariness": {
+              "answer": "yes",
+              "rationale": "The decisive hidden forks are surfaced and resolved."
+            },
+            "questions_necessary_and_well_timed": {
+              "answer": "yes",
+              "rationale": "Question timing tracks the active semantic ambiguity."
+            },
+            "final_handoff_canonical": {
+              "answer": "yes",
+              "rationale": "The handoff is tightly reduced to the benchmark's core task shape."
+            },
+            "delegation_reliable": {
+              "answer": "yes",
+              "rationale": "A worker-agent would be guided toward the intended behavior rather than a shallow fix."
+            },
+            "preserved_pda_spirit": {
+              "answer": "yes",
+              "rationale": "The run remains de-arbitrarizing rather than merely helpful."
+            }
+          }
+        }
+      },
+      "score_path": "results/runs/interactive-pip/candidate-001/score-v2/evaluation.json",
+      "score_is_v2_preferred": true
+    },
+    {
+      "benchmark_id": "interactive-pip",
+      "candidate_id": "candidate-002",
+      "manifest": {
+        "benchmark_id": "interactive-pip",
+        "candidate_id": "candidate-002",
+        "candidate_artifact": "none",
+        "run_kind": "adversarial",
+        "source_kind": "synthetic_adversarial",
+        "summary": "Deliberately shallow comparison run that narrows too early and recomposes with hidden semantic ambiguity.",
+        "notes": "Used to test rejection of obvious weakness."
+      },
+      "score": {
+        "rubric_version": "pda-handoff-v1",
+        "candidate_id": "candidate-002",
+        "benchmark_id": "interactive-pip",
+        "notes": "Deliberately shallow comparison run.",
+        "hard_gates": {
+          "passed": false,
+          "violations": [
+            "skipped_option_resolution_when_required",
+            "premature_recomposition"
+          ],
+          "rationale": "The run never makes the interaction-policy forks explicit and recomposes while semantic ambiguity remains hidden."
+        },
+        "phase_scores": {
+          "descent": {
+            "ambiguity_localization": {
+              "score": 1,
+              "rationale": "Recognizes some ambiguity but mislocalizes the main difficulty as wiring scope."
+            },
+            "forced_vs_chosen_separation": {
+              "score": 1,
+              "rationale": "Partially distinguishes fixed requirements from open behavior."
+            },
+            "question_discipline": {
+              "score": 1,
+              "rationale": "Question is focused, but it targets a downstream scope fork instead of the live semantic ambiguity."
+            },
+            "non_premature_descent": {
+              "score": 0,
+              "rationale": "Leaves semantic policy largely tacit before moving on."
+            },
+            "optioning_readiness_discipline": {
+              "score": 0,
+              "rationale": "Introduces options before the core ambiguity is properly shaped."
+            }
+          },
+          "option_resolution": {
+            "explicit_residual_policy": {
+              "score": 0,
+              "rationale": "Important policy remains implicit."
+            },
+            "option_quality": {
+              "score": 1,
+              "rationale": "Options are understandable, but they are not the decisive fork."
+            },
+            "default_quality": {
+              "score": 1,
+              "rationale": "Default is plausible on its own terms."
+            },
+            "resolution_sufficiency": {
+              "score": 0,
+              "rationale": "The selected option does not resolve the benchmark's key ambiguity."
+            },
+            "recursive_return_discipline": {
+              "score": 0,
+              "rationale": "Does not return to descent when unresolved semantic ambiguity remains."
+            }
+          },
+          "recomposition": {
+            "implementation_readiness": {
+              "score": 1,
+              "rationale": "A worker could act, but would have to invent missing semantics."
+            },
+            "structural_fidelity": {
+              "score": 0,
+              "rationale": "Drops the interaction-policy distinctions required by the benchmark."
+            },
+            "canonicality": {
+              "score": 1,
+              "rationale": "Compact, but mostly because it omits important structure."
+            },
+            "delegation_reliability": {
+              "score": 0,
+              "rationale": "Different workers could implement materially different behaviors from this handoff."
+            },
+            "declared_irrelevancies_and_nongoals": {
+              "score": 0,
+              "rationale": "States `None` instead of explicitly bounding what was left out."
+            }
+          }
+        },
+        "totals": {
+          "descent": 3,
+          "option_resolution": 2,
+          "recomposition": 2,
+          "overall": 7,
+          "phase_minimums_passed": false,
+          "interpretation": "poor_candidate"
+        },
+        "human_review": {
+          "performed": false,
+          "summary": "",
+          "questions": {}
+        }
+      },
+      "score_path": "results/runs/interactive-pip/candidate-002/score/evaluation.json",
+      "score_is_v2_preferred": false
+    },
+    {
+      "benchmark_id": "interactive-pip",
+      "candidate_id": "candidate-003",
+      "manifest": {
+        "benchmark_id": "interactive-pip",
+        "candidate_id": "candidate-003",
+        "candidate_artifact": "none",
+        "run_kind": "adversarial",
+        "source_kind": "synthetic_adversarial",
+        "summary": "Polished but semantically misprioritized run centered on layout scope rather than interaction semantics.",
+        "notes": "Used to test rejection of PDA-shaped but off-center traces."
+      },
+      "score": {
+        "rubric_version": "pda-handoff-v1",
+        "candidate_id": "candidate-003",
+        "benchmark_id": "interactive-pip",
+        "notes": "Polished but semantically misprioritized comparison run.",
+        "hard_gates": {
+          "passed": false,
+          "violations": [
+            "skipped_option_resolution_when_required",
+            "premature_recomposition"
+          ],
+          "rationale": "The run uses PDA-like structure, but it never makes the benchmark's decisive interaction-policy forks explicit before recomposition."
+        },
+        "phase_scores": {
+          "descent": {
+            "ambiguity_localization": {
+              "score": 1,
+              "rationale": "The run localizes a real ambiguity, but not the benchmark's primary one; it foregrounds scope over interaction semantics."
+            },
+            "forced_vs_chosen_separation": {
+              "score": 2,
+              "rationale": "The trace cleanly separates constraints from choices within its chosen framing."
+            },
+            "question_discipline": {
+              "score": 2,
+              "rationale": "The question is single and well formed, even though it is misprioritized."
+            },
+            "non_premature_descent": {
+              "score": 1,
+              "rationale": "Some descent occurs, but the trace stops before surfacing the deeper semantic forks."
+            },
+            "optioning_readiness_discipline": {
+              "score": 1,
+              "rationale": "Optioning is structurally clean, but it begins from a mislocalized ambiguity."
+            }
+          },
+          "option_resolution": {
+            "explicit_residual_policy": {
+              "score": 0,
+              "rationale": "Key interaction-policy choices remain hidden."
+            },
+            "option_quality": {
+              "score": 2,
+              "rationale": "The options are crisp and consequential within the chosen framing."
+            },
+            "default_quality": {
+              "score": 2,
+              "rationale": "The default is plausible and coherent on its own terms."
+            },
+            "resolution_sufficiency": {
+              "score": 0,
+              "rationale": "Resolving layout scope does not resolve the benchmark's decisive ambiguity."
+            },
+            "recursive_return_discipline": {
+              "score": 0,
+              "rationale": "The run does not return to descent after scope selection leaves semantic ambiguity intact."
+            }
+          },
+          "recomposition": {
+            "implementation_readiness": {
+              "score": 1,
+              "rationale": "A worker could implement something, but would still have to invent major interaction semantics."
+            },
+            "structural_fidelity": {
+              "score": 0,
+              "rationale": "The final handoff does not preserve the semantic structure required by the benchmark."
+            },
+            "canonicality": {
+              "score": 2,
+              "rationale": "The handoff is compact and well-shaped in form."
+            },
+            "delegation_reliability": {
+              "score": 0,
+              "rationale": "Different workers could implement materially different PiP behaviors from this handoff."
+            },
+            "declared_irrelevancies_and_nongoals": {
+              "score": 1,
+              "rationale": "Non-goals are stated, but they do not compensate for omitted decisive ambiguity."
+            }
+          }
+        },
+        "totals": {
+          "descent": 7,
+          "option_resolution": 4,
+          "recomposition": 4,
+          "overall": 15,
+          "phase_minimums_passed": false,
+          "interpretation": "poor_candidate"
+        },
+        "human_review": {
+          "performed": false,
+          "summary": "",
+          "questions": {}
+        }
+      },
+      "score_path": "results/runs/interactive-pip/candidate-003/score/evaluation.json",
+      "score_is_v2_preferred": false
+    },
+    {
+      "benchmark_id": "interactive-pip",
+      "candidate_id": "candidate-101",
+      "manifest": {
+        "benchmark_id": "interactive-pip",
+        "candidate_id": "candidate-101",
+        "candidate_artifact": "external-input-package",
+        "run_kind": "external",
+        "source_kind": "external_model",
+        "summary": "Prepared slot for the first externally sourced interactive-pip run.",
+        "notes": "Trace, handoff, and score should be added verbatim from the external source before evaluation."
+      },
+      "score": {
+        "rubric_version": "pda-handoff-v2",
+        "candidate_id": "candidate-101",
+        "benchmark_id": "interactive-pip",
+        "notes": "v2 rescore of the externally sourced PiP candidate, making abstraction-level failure explicit.",
+        "hard_gates": {
+          "passed": false,
+          "violations": [
+            "skipped_option_resolution_when_required",
+            "premature_recomposition",
+            "wrong_abstraction_level"
+          ],
+          "rationale": "The response performs a competent review and identifies a concrete fix, but remains centered on implementation diagnosis rather than the benchmark's governing interaction-policy ambiguity."
+        },
+        "phase_scores": {
+          "descent": {
+            "ambiguity_localization": {
+              "score": 1,
+              "rationale": "It localizes a real implementation issue, but not the governing interaction-policy problem."
+            },
+            "abstraction_level_fidelity": {
+              "score": 0,
+              "rationale": "The trace operates at the wrong abstraction level: implementation diagnosis and CSS conflict instead of the benchmark's interaction semantics and policy."
+            },
+            "forced_vs_chosen_separation": {
+              "score": 1,
+              "rationale": "It distinguishes current issues from optional improvements, but not forced structure from contingent policy."
+            },
+            "question_discipline": {
+              "score": 1,
+              "rationale": "The review is orderly, but it does not ask the question that would constrain the semantic space."
+            },
+            "non_premature_descent": {
+              "score": 1,
+              "rationale": "Some inspection occurs before recommendations, but the response settles on a fix path before clarifying the key semantic model."
+            },
+            "optioning_readiness_discipline": {
+              "score": 0,
+              "rationale": "No explicit choice point is formed around the benchmark's central policy forks."
+            }
+          },
+          "option_resolution": {
+            "explicit_residual_policy": {
+              "score": 0,
+              "rationale": "Free-panel vs video-object semantics, persistence, gesture ownership, hit zones, and click suppression remain implicit."
+            },
+            "option_quality": {
+              "score": 1,
+              "rationale": "The response includes optional improvements, but not as clean alternatives to the decisive ambiguity."
+            },
+            "default_quality": {
+              "score": 1,
+              "rationale": "The recommended CSS fix is plausible on its own terms, but not grounded in a resolved semantic model."
+            },
+            "resolution_sufficiency": {
+              "score": 0,
+              "rationale": "The proposed fix does not resolve the benchmark's core hidden ambiguity."
+            },
+            "recursive_return_discipline": {
+              "score": 0,
+              "rationale": "The response does not return to deeper descent when review findings reveal a broader semantic problem space."
+            }
+          },
+          "recomposition": {
+            "implementation_readiness": {
+              "score": 1,
+              "rationale": "A worker could make the proposed CSS edit, but would still lack the intended interaction semantics."
+            },
+            "abstraction_level_fidelity": {
+              "score": 0,
+              "rationale": "The final handoff remains at the level of wiring and CSS correction rather than the benchmark's governing interaction-policy model."
+            },
+            "structural_fidelity": {
+              "score": 0,
+              "rationale": "The final handoff loses the semantic structure around free-panel behavior that the benchmark requires."
+            },
+            "canonicality": {
+              "score": 1,
+              "rationale": "The handoff is organized and specific, but specific to the wrong level of the problem."
+            },
+            "delegation_reliability": {
+              "score": 1,
+              "rationale": "A worker would reliably apply the CSS fix, but that reliability is not enough for the benchmark's intended outcome."
+            },
+            "declared_irrelevancies_and_nongoals": {
+              "score": 0,
+              "rationale": "No explicit non-goals or declared irrelevancies are stated."
+            }
+          }
+        },
+        "totals": {
+          "descent": 4,
+          "option_resolution": 2,
+          "recomposition": 3,
+          "overall": 9,
+          "phase_minimums_passed": false,
+          "interpretation": "poor_candidate"
+        },
+        "human_review": {
+          "performed": true,
+          "summary": "v2 makes the central failure explicit: the response is technically competent, but at the wrong abstraction level for the benchmark.",
+          "questions": {
+            "removed_concealed_arbitrariness": {
+              "answer": "no",
+              "rationale": "It surfaces a concrete issue, but not the hidden arbitrariness that mattered most."
+            },
+            "questions_necessary_and_well_timed": {
+              "answer": "no",
+              "rationale": "The response does not use question-driven narrowing at the decisive semantic layer."
+            },
+            "final_handoff_canonical": {
+              "answer": "no",
+              "rationale": "The handoff is neat, but centered on a shallow diagnosis rather than the benchmark's resolved semantics."
+            },
+            "delegation_reliable": {
+              "answer": "mixed",
+              "rationale": "Reliable for applying the proposed fix, not for producing the intended benchmark-level behavior."
+            },
+            "preserved_pda_spirit": {
+              "answer": "no",
+              "rationale": "It reviews and recommends well, but does not descend to the governing ambiguity before recomposition."
+            }
+          }
+        }
+      },
+      "score_path": "results/runs/interactive-pip/candidate-101/score-v2/evaluation.json",
+      "score_is_v2_preferred": true
+    }
+  ]
+}
