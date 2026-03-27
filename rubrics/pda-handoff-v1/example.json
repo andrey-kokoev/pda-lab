@@ -1,0 +1,47 @@
+{
+  "rubric_version": "pda-handoff-v1",
+  "candidate_id": "candidate-001",
+  "benchmark_id": "interactive-pip",
+  "notes": "Example only.",
+  "hard_gates": {
+    "passed": true,
+    "violations": [],
+    "rationale": "No hard-gate violation observed."
+  },
+  "phase_scores": {
+    "descent": {
+      "ambiguity_localization": { "score": 2, "rationale": "Correctly localized ambiguity to interaction policy." },
+      "forced_vs_chosen_separation": { "score": 2 },
+      "question_discipline": { "score": 1 },
+      "non_premature_descent": { "score": 2 },
+      "optioning_readiness_discipline": { "score": 2 }
+    },
+    "option_resolution": {
+      "explicit_residual_policy": { "score": 2 },
+      "option_quality": { "score": 2 },
+      "default_quality": { "score": 1 },
+      "resolution_sufficiency": { "score": 2 },
+      "recursive_return_discipline": { "score": 2 }
+    },
+    "recomposition": {
+      "implementation_readiness": { "score": 2 },
+      "structural_fidelity": { "score": 2 },
+      "canonicality": { "score": 1 },
+      "delegation_reliability": { "score": 2 },
+      "declared_irrelevancies_and_nongoals": { "score": 2 }
+    }
+  },
+  "totals": {
+    "descent": 9,
+    "option_resolution": 9,
+    "recomposition": 9,
+    "overall": 27,
+    "phase_minimums_passed": true,
+    "interpretation": "strong_pda_handoff"
+  },
+  "human_review": {
+    "performed": false,
+    "summary": "",
+    "questions": {}
+  }
+}

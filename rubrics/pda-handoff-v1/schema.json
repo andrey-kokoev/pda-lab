@@ -1,0 +1,280 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/andrey-kokoev/pda-lab/blob/master/rubrics/pda-handoff-v1/schema.json",
+  "title": "PDA Handoff Evaluation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "rubric_version",
+    "candidate_id",
+    "benchmark_id",
+    "hard_gates",
+    "phase_scores",
+    "totals"
+  ],
+  "properties": {
+    "rubric_version": {
+      "type": "string",
+      "const": "pda-handoff-v1"
+    },
+    "candidate_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "benchmark_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "notes": {
+      "type": "string"
+    },
+    "hard_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "passed",
+        "violations"
+      ],
+      "properties": {
+        "passed": {
+          "type": "boolean"
+        },
+        "violations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "premature_implementation_with_tacit_policy",
+              "no_forced_vs_chosen_separation",
+              "skipped_option_resolution_when_required",
+              "premature_recomposition",
+              "collapsed_required_phase_structure",
+              "omitted_declared_irrelevancies_or_nongoals"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "phase_scores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "descent",
+        "option_resolution",
+        "recomposition"
+      ],
+      "properties": {
+        "descent": {
+          "$ref": "#/$defs/descentPhase"
+        },
+        "option_resolution": {
+          "$ref": "#/$defs/optionResolutionPhase"
+        },
+        "recomposition": {
+          "$ref": "#/$defs/recompositionPhase"
+        }
+      }
+    },
+    "totals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "descent",
+        "option_resolution",
+        "recomposition",
+        "overall"
+      ],
+      "properties": {
+        "descent": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "option_resolution": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "recomposition": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "overall": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 30
+        },
+        "phase_minimums_passed": {
+          "type": "boolean"
+        },
+        "interpretation": {
+          "type": "string",
+          "enum": [
+            "strong_pda_handoff",
+            "usable_but_leaky",
+            "weak_closure_needs_revision",
+            "poor_candidate"
+          ]
+        }
+      }
+    },
+    "human_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "performed": {
+          "type": "boolean"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "questions": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "removed_concealed_arbitrariness": {
+              "$ref": "#/$defs/humanAssessment"
+            },
+            "questions_necessary_and_well_timed": {
+              "$ref": "#/$defs/humanAssessment"
+            },
+            "final_handoff_canonical": {
+              "$ref": "#/$defs/humanAssessment"
+            },
+            "delegation_reliable": {
+              "$ref": "#/$defs/humanAssessment"
+            },
+            "preserved_pda_spirit": {
+              "$ref": "#/$defs/humanAssessment"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "score"
+      ],
+      "properties": {
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "descentPhase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ambiguity_localization",
+        "forced_vs_chosen_separation",
+        "question_discipline",
+        "non_premature_descent",
+        "optioning_readiness_discipline"
+      ],
+      "properties": {
+        "ambiguity_localization": {
+          "$ref": "#/$defs/dimension"
+        },
+        "forced_vs_chosen_separation": {
+          "$ref": "#/$defs/dimension"
+        },
+        "question_discipline": {
+          "$ref": "#/$defs/dimension"
+        },
+        "non_premature_descent": {
+          "$ref": "#/$defs/dimension"
+        },
+        "optioning_readiness_discipline": {
+          "$ref": "#/$defs/dimension"
+        }
+      }
+    },
+    "optionResolutionPhase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "explicit_residual_policy",
+        "option_quality",
+        "default_quality",
+        "resolution_sufficiency",
+        "recursive_return_discipline"
+      ],
+      "properties": {
+        "explicit_residual_policy": {
+          "$ref": "#/$defs/dimension"
+        },
+        "option_quality": {
+          "$ref": "#/$defs/dimension"
+        },
+        "default_quality": {
+          "$ref": "#/$defs/dimension"
+        },
+        "resolution_sufficiency": {
+          "$ref": "#/$defs/dimension"
+        },
+        "recursive_return_discipline": {
+          "$ref": "#/$defs/dimension"
+        }
+      }
+    },
+    "recompositionPhase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "implementation_readiness",
+        "structural_fidelity",
+        "canonicality",
+        "delegation_reliability",
+        "declared_irrelevancies_and_nongoals"
+      ],
+      "properties": {
+        "implementation_readiness": {
+          "$ref": "#/$defs/dimension"
+        },
+        "structural_fidelity": {
+          "$ref": "#/$defs/dimension"
+        },
+        "canonicality": {
+          "$ref": "#/$defs/dimension"
+        },
+        "delegation_reliability": {
+          "$ref": "#/$defs/dimension"
+        },
+        "declared_irrelevancies_and_nongoals": {
+          "$ref": "#/$defs/dimension"
+        }
+      }
+    },
+    "humanAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "answer": {
+          "type": "string",
+          "enum": [
+            "yes",
+            "mixed",
+            "no"
+          ]
+        },
+        "rationale": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
