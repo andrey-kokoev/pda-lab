@@ -1,0 +1,50 @@
+{
+  "rubric_version": "pda-handoff-v1",
+  "candidate_id": "candidate-002",
+  "benchmark_id": "build-update-visibility",
+  "notes": "Polished but misframed comparison run.",
+  "hard_gates": {
+    "passed": false,
+    "violations": [
+      "skipped_option_resolution_when_required",
+      "premature_recomposition"
+    ],
+    "rationale": "The run never makes current-build identity or update availability explicit, and recomposes while the benchmark's core state-legibility ambiguity remains hidden."
+  },
+  "phase_scores": {
+    "descent": {
+      "ambiguity_localization": { "score": 1, "rationale": "The run localizes a real UI/product ambiguity, but misframes the core task as deploy-time display rather than build/update-state legibility." },
+      "forced_vs_chosen_separation": { "score": 2, "rationale": "Within the misframed task, constraints and choices are clearly separated." },
+      "question_discipline": { "score": 2, "rationale": "The question is single and well formed, though aimed at the wrong center." },
+      "non_premature_descent": { "score": 1, "rationale": "Some descent occurs, but it stops before surfacing the decisive product-state distinctions." },
+      "optioning_readiness_discipline": { "score": 1, "rationale": "Optioning is structurally clean, but begins from a mislocalized ambiguity." }
+    },
+    "option_resolution": {
+      "explicit_residual_policy": { "score": 0, "rationale": "Key choices about build identity and update availability remain implicit." },
+      "option_quality": { "score": 2, "rationale": "Options are crisp within the misframed problem." },
+      "default_quality": { "score": 2, "rationale": "The default is product-coherent on its own terms." },
+      "resolution_sufficiency": { "score": 0, "rationale": "Placement alone does not resolve the benchmark's decisive ambiguity." },
+      "recursive_return_discipline": { "score": 0, "rationale": "The run does not return to descent despite unresolved state-legibility ambiguity." }
+    },
+    "recomposition": {
+      "implementation_readiness": { "score": 1, "rationale": "A worker could implement something, but it would be the wrong thing for the benchmark." },
+      "structural_fidelity": { "score": 0, "rationale": "The handoff loses the distinction between deploy time and build/update-state visibility." },
+      "canonicality": { "score": 2, "rationale": "The final handoff is compact and coherent in form." },
+      "delegation_reliability": { "score": 0, "rationale": "The worker would execute a misframed task reliably, which is still benchmark failure." },
+      "declared_irrelevancies_and_nongoals": { "score": 1, "rationale": "Non-goals are stated, but they do not bound the missing decisive ambiguity." }
+    }
+  },
+  "totals": {
+    "descent": 7,
+    "option_resolution": 4,
+    "recomposition": 4,
+    "overall": 15,
+    "phase_minimums_passed": false,
+    "interpretation": "poor_candidate"
+  },
+  "human_review": {
+    "performed": false,
+    "summary": "",
+    "questions": {}
+  }
+}

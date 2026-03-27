@@ -1,0 +1,47 @@
+{
+  "rubric_version": "pda-handoff-v1",
+  "candidate_id": "candidate-001",
+  "benchmark_id": "interactive-pip",
+  "notes": "Manual baseline run authored from the current template.",
+  "hard_gates": {
+    "passed": true,
+    "violations": [],
+    "rationale": "No hard-gate violation observed. Policy was made explicit before recomposition."
+  },
+  "phase_scores": {
+    "descent": {
+      "ambiguity_localization": { "score": 2, "rationale": "Correctly localizes the task difficulty to interaction semantics and then to free-panel policy." },
+      "forced_vs_chosen_separation": { "score": 2, "rationale": "Forced constraints and contingent choices are clearly separated in both descent passes." },
+      "question_discipline": { "score": 2, "rationale": "Questions are single, targeted, and layer-appropriate." },
+      "non_premature_descent": { "score": 2, "rationale": "Does not move to recomposition until semantics are explicit." },
+      "optioning_readiness_discipline": { "score": 2, "rationale": "Options are only introduced once the fork is explicit and concrete." }
+    },
+    "option_resolution": {
+      "explicit_residual_policy": { "score": 2, "rationale": "All material remaining policy is made explicit." },
+      "option_quality": { "score": 2, "rationale": "Options are crisp and implementation-relevant." },
+      "default_quality": { "score": 2, "rationale": "Defaults are plausible and guide convergence." },
+      "resolution_sufficiency": { "score": 2, "rationale": "No material ambiguity remains by recomposition." },
+      "recursive_return_discipline": { "score": 2, "rationale": "Returns to descent after the first choice reveals a deeper layer." }
+    },
+    "recomposition": {
+      "implementation_readiness": { "score": 2, "rationale": "Final handoff is directly actionable." },
+      "structural_fidelity": { "score": 2, "rationale": "Recomposition preserves the policy distinctions established during trace." },
+      "canonicality": { "score": 2, "rationale": "Final handoff is concise and stripped of irrelevant detail." },
+      "delegation_reliability": { "score": 2, "rationale": "A competent worker-agent should execute this with minimal drift." },
+      "declared_irrelevancies_and_nongoals": { "score": 2, "rationale": "Non-goals are explicit and bounded." }
+    }
+  },
+  "totals": {
+    "descent": 10,
+    "option_resolution": 10,
+    "recomposition": 10,
+    "overall": 30,
+    "phase_minimums_passed": true,
+    "interpretation": "strong_pda_handoff"
+  },
+  "human_review": {
+    "performed": false,
+    "summary": "",
+    "questions": {}
+  }
+}

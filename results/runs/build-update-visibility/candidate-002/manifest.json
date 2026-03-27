@@ -1,0 +1,9 @@
+{
+  "benchmark_id": "build-update-visibility",
+  "candidate_id": "candidate-002",
+  "candidate_artifact": "none",
+  "run_kind": "adversarial",
+  "source_kind": "synthetic_adversarial",
+  "summary": "Polished but misframed run centered on deploy-time visibility rather than build/update-state legibility.",
+  "notes": "Used to test rejection of product-coherent but wrong-centered traces."
+}

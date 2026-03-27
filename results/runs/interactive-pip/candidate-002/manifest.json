@@ -1,0 +1,9 @@
+{
+  "benchmark_id": "interactive-pip",
+  "candidate_id": "candidate-002",
+  "candidate_artifact": "none",
+  "run_kind": "adversarial",
+  "source_kind": "synthetic_adversarial",
+  "summary": "Deliberately shallow comparison run that narrows too early and recomposes with hidden semantic ambiguity.",
+  "notes": "Used to test rejection of obvious weakness."
+}

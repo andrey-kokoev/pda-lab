@@ -1,0 +1,71 @@
+{
+  "rubric_version": "pda-handoff-v1",
+  "candidate_id": "candidate-101",
+  "benchmark_id": "build-update-visibility",
+  "notes": "Externally sourced candidate scored as received, without rewriting into PDA shape.",
+  "hard_gates": {
+    "passed": false,
+    "violations": [
+      "skipped_option_resolution_when_required",
+      "premature_recomposition"
+    ],
+    "rationale": "The response surveys options and recommends a bundle, but never makes the benchmark's decisive state-legibility and placement forks explicit before concluding with an implementation recommendation."
+  },
+  "phase_scores": {
+    "descent": {
+      "ambiguity_localization": { "score": 1, "rationale": "It recognizes the freshness/caching problem, but frames it generically as app diagnostics rather than the specific build/update-state legibility problem in this product context." },
+      "forced_vs_chosen_separation": { "score": 1, "rationale": "Pros/cons are discussed, but forced structure and contingent policy are not cleanly separated." },
+      "question_discipline": { "score": 1, "rationale": "It explores several relevant options, but broadens rather than localizes the live ambiguity." },
+      "non_premature_descent": { "score": 1, "rationale": "There is some exploration, but it settles on a recommendation before clarifying the key product placement and state-identity questions." },
+      "optioning_readiness_discipline": { "score": 0, "rationale": "Options are enumerated at mixed layers before a concrete choice point is isolated." }
+    },
+    "option_resolution": {
+      "explicit_residual_policy": { "score": 0, "rationale": "The core choice between deploy time, build identity, and update availability never becomes an explicit decision point." },
+      "option_quality": { "score": 1, "rationale": "The listed options are sensible, but they mix diagnostic tooling, prevention, and UI surfacing in one plane." },
+      "default_quality": { "score": 1, "rationale": "The multi-layer recommendation is plausible generally, but not well-centered on the benchmark's product need." },
+      "resolution_sufficiency": { "score": 0, "rationale": "The recommendation leaves the decisive benchmark ambiguity unresolved." },
+      "recursive_return_discipline": { "score": 0, "rationale": "The response does not return to a deeper descent after broad option exploration reveals placement and audience questions." }
+    },
+    "recomposition": {
+      "implementation_readiness": { "score": 1, "rationale": "A worker could implement something from the handoff, but likely the wrong shape for this benchmark." },
+      "structural_fidelity": { "score": 0, "rationale": "The final handoff does not preserve the distinction between current build identity, update availability, and deploy-time support metadata." },
+      "canonicality": { "score": 1, "rationale": "The handoff is organized, but carries extra generic recommendations not canonically shaped to the benchmark." },
+      "delegation_reliability": { "score": 1, "rationale": "Execution would be reliable in a generic app-support sense, but likely drift from the intended product-coherent outcome." },
+      "declared_irrelevancies_and_nongoals": { "score": 0, "rationale": "No explicit non-goals or declared irrelevancies are stated." }
+    }
+  },
+  "totals": {
+    "descent": 4,
+    "option_resolution": 2,
+    "recomposition": 3,
+    "overall": 9,
+    "phase_minimums_passed": false,
+    "interpretation": "poor_candidate"
+  },
+  "human_review": {
+    "performed": true,
+    "summary": "Coherent generic product/dev-support response, but benchmark-poor because it misframes the task and never sharpens the decisive product-state and placement forks.",
+    "questions": {
+      "removed_concealed_arbitrariness": {
+        "answer": "no",
+        "rationale": "It surfaces possibilities, but not the specific hidden arbitrariness that mattered for this benchmark."
+      },
+      "questions_necessary_and_well_timed": {
+        "answer": "mixed",
+        "rationale": "The closing clarification questions are reasonable, but they arrive after a bundled recommendation rather than shaping it first."
+      },
+      "final_handoff_canonical": {
+        "answer": "no",
+        "rationale": "The final handoff is organized but not canonically reduced to the benchmark's core task shape."
+      },
+      "delegation_reliable": {
+        "answer": "mixed",
+        "rationale": "Reliable for a generic diagnostic feature, not reliable for the intended benchmark outcome."
+      },
+      "preserved_pda_spirit": {
+        "answer": "no",
+        "rationale": "It explores options helpfully, but does not descend to and resolve the decisive ambiguity before recomposition."
+      }
+    }
+  }
+}

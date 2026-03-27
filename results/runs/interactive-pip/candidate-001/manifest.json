@@ -1,0 +1,9 @@
+{
+  "benchmark_id": "interactive-pip",
+  "candidate_id": "candidate-001",
+  "candidate_artifact": "artifacts/pda-handoff-template-v1",
+  "run_kind": "baseline",
+  "source_kind": "hand_authored",
+  "summary": "Hand-authored baseline run using the current PDA handoff template.",
+  "notes": "Strong reference run; likely self-confirming if used alone."
+}

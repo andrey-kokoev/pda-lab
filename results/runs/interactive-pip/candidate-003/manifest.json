@@ -1,0 +1,9 @@
+{
+  "benchmark_id": "interactive-pip",
+  "candidate_id": "candidate-003",
+  "candidate_artifact": "none",
+  "run_kind": "adversarial",
+  "source_kind": "synthetic_adversarial",
+  "summary": "Polished but semantically misprioritized run centered on layout scope rather than interaction semantics.",
+  "notes": "Used to test rejection of PDA-shaped but off-center traces."
+}

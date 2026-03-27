@@ -1,0 +1,9 @@
+{
+  "benchmark_id": "build-update-visibility",
+  "candidate_id": "candidate-101",
+  "candidate_artifact": "external-input-package",
+  "run_kind": "external",
+  "source_kind": "external_model",
+  "summary": "Prepared slot for the first externally sourced candidate run.",
+  "notes": "Trace, handoff, and score should be added verbatim from the external source before evaluation."
+}

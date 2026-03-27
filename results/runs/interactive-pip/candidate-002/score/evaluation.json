@@ -1,0 +1,50 @@
+{
+  "rubric_version": "pda-handoff-v1",
+  "candidate_id": "candidate-002",
+  "benchmark_id": "interactive-pip",
+  "notes": "Deliberately shallow comparison run.",
+  "hard_gates": {
+    "passed": false,
+    "violations": [
+      "skipped_option_resolution_when_required",
+      "premature_recomposition"
+    ],
+    "rationale": "The run never makes the interaction-policy forks explicit and recomposes while semantic ambiguity remains hidden."
+  },
+  "phase_scores": {
+    "descent": {
+      "ambiguity_localization": { "score": 1, "rationale": "Recognizes some ambiguity but mislocalizes the main difficulty as wiring scope." },
+      "forced_vs_chosen_separation": { "score": 1, "rationale": "Partially distinguishes fixed requirements from open behavior." },
+      "question_discipline": { "score": 1, "rationale": "Question is focused, but it targets a downstream scope fork instead of the live semantic ambiguity." },
+      "non_premature_descent": { "score": 0, "rationale": "Leaves semantic policy largely tacit before moving on." },
+      "optioning_readiness_discipline": { "score": 0, "rationale": "Introduces options before the core ambiguity is properly shaped." }
+    },
+    "option_resolution": {
+      "explicit_residual_policy": { "score": 0, "rationale": "Important policy remains implicit." },
+      "option_quality": { "score": 1, "rationale": "Options are understandable, but they are not the decisive fork." },
+      "default_quality": { "score": 1, "rationale": "Default is plausible on its own terms." },
+      "resolution_sufficiency": { "score": 0, "rationale": "The selected option does not resolve the benchmark's key ambiguity." },
+      "recursive_return_discipline": { "score": 0, "rationale": "Does not return to descent when unresolved semantic ambiguity remains." }
+    },
+    "recomposition": {
+      "implementation_readiness": { "score": 1, "rationale": "A worker could act, but would have to invent missing semantics." },
+      "structural_fidelity": { "score": 0, "rationale": "Drops the interaction-policy distinctions required by the benchmark." },
+      "canonicality": { "score": 1, "rationale": "Compact, but mostly because it omits important structure." },
+      "delegation_reliability": { "score": 0, "rationale": "Different workers could implement materially different behaviors from this handoff." },
+      "declared_irrelevancies_and_nongoals": { "score": 0, "rationale": "States `None` instead of explicitly bounding what was left out." }
+    }
+  },
+  "totals": {
+    "descent": 3,
+    "option_resolution": 2,
+    "recomposition": 2,
+    "overall": 7,
+    "phase_minimums_passed": false,
+    "interpretation": "poor_candidate"
+  },
+  "human_review": {
+    "performed": false,
+    "summary": "",
+    "questions": {}
+  }
+}

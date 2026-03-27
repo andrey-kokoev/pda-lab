@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/andrey-kokoev/pda-lab/blob/master/results/schema/run-manifest.schema.json",
+  "title": "PDA Lab Run Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "benchmark_id",
+    "candidate_id",
+    "candidate_artifact",
+    "run_kind",
+    "source_kind",
+    "summary"
+  ],
+  "properties": {
+    "benchmark_id": { "type": "string", "minLength": 1 },
+    "candidate_id": { "type": "string", "minLength": 1 },
+    "candidate_artifact": { "type": "string", "minLength": 1 },
+    "run_kind": {
+      "type": "string",
+      "enum": [
+        "baseline",
+        "adversarial",
+        "automated",
+        "external"
+      ]
+    },
+    "source_kind": {
+      "type": "string",
+      "enum": [
+        "hand_authored",
+        "synthetic_adversarial",
+        "optimizer_generated",
+        "external_human",
+        "external_model"
+      ]
+    },
+    "summary": { "type": "string", "minLength": 1 },
+    "notes": { "type": "string" }
+  }
+}
