@@ -1,8 +1,17 @@
 {
-  "generated_at": "2026-03-27T14:14:08.353Z",
+  "generated_at": "2026-03-27T16:02:23.929Z",
   "forward_rubric": "pda-handoff-v2",
   "historical_rubric": "pda-handoff-v1",
   "benchmarks": [
+    {
+      "benchmark_id": "build-status-placement-scope",
+      "raw_task": "# Raw Task\n\nWhy is that state section now showing as modal at the bottom? Is it coherent UX?\n\nPut it as a simple footer under the bottom buttons. No badge. Just texts.\n\nAnd muted text.\n\nWe only need it on landing view. Not on call view.\n",
+      "reference_closed_formulation": "# Reference Closed Formulation\n\nTarget closure for this benchmark:\n\n- The build/update state element is secondary status information, not a primary control.\n- The core ambiguity is placement and presentation weight, not data-model semantics.\n- The status should not read as modal, banner-like, or interruptive.\n- Scope should be narrowed to the landing view rather than call surfaces.\n- Recomposition is allowed only once placement, visual weight, and surface scope are explicit.\n\nThe benchmark should reward traces that reduce UI overstatement and clarify where status belongs before implementation.\n",
+      "chosen_directions": "# Chosen Directions\n\nThese benchmark-specific directions are already settled and should be preserved in generated handoffs rather than reopened or replaced with generic defaults.\n\n- Use plain text, not a badge.\n- The text should be visually muted.\n- Place it as a simple footer under the landing-view bottom controls.\n- Do not show it on call view.\n- It should remain secondary status, not a modal or banner-like element.\n",
+      "expected_policy_questions": "# Expected Policy Questions\n\nA strong PDA trace should make some version of these decision points explicit:\n\n1. Is this UI element primary action or secondary status?\n2. Is the current presentation too modal or overstated for its role?\n3. Where should the status live in the information hierarchy?\n4. Should it appear only on landing view, or also on call surfaces?\n5. Should the element be a badge/widget, or plain muted text?\n",
+      "validation_criteria": "# Validation Criteria\n\n- Final handoff makes placement and visual weight explicit before implementation.\n- Result keeps build/update status as secondary information rather than a modal/badge-like element.\n- Landing-view-only scope is explicit.\n- Final implementation can be checked for plain muted text placement under the landing-view controls.\n",
+      "baseline": "# Baseline\n\n- Repo: `telesense`\n- Baseline reference: commit immediately before the build-status placement/scope thread used for this benchmark\n- Purpose: freeze the codebase state before UI placement and scope were clarified\n\nPopulate the exact commit SHA when the benchmark is finalized.\n"
+    },
     {
       "benchmark_id": "build-update-visibility",
       "raw_task": "# Raw Task\n\nFor our app, it is difficult to know if mobile is cached or is refreshed. What are coherent options to fix it? Last time of deploy?\n\nThis should remain close to the original user wording rather than a normalized product brief.\n",
@@ -1496,6 +1505,254 @@
       },
       "score_path": "results/runs/interactive-pip/candidate-302/score-v2/evaluation.json",
       "score_is_v2_preferred": true
+    },
+    {
+      "benchmark_id": "interactive-pip",
+      "candidate_id": "candidate-303",
+      "manifest": {
+        "benchmark_id": "interactive-pip",
+        "candidate_id": "candidate-303",
+        "candidate_artifact": "optimizer/dspy",
+        "run_kind": "automated",
+        "source_kind": "optimizer_generated",
+        "summary": "DSPy-generated candidate run.",
+        "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+      },
+      "score": {
+        "rubric_version": "pda-handoff-v2",
+        "candidate_id": "candidate-303",
+        "benchmark_id": "interactive-pip",
+        "notes": "Third LM-backed DSPy/Kimi candidate for the interactive PiP benchmark, generated after adding explicit chosen directions. It preserves the settled benchmark directions much more faithfully than prior automated runs and no longer drifts on threshold, hit-zone proportions, minimum size, scope, or metadata behavior.",
+        "hard_gates": {
+          "passed": true,
+          "violations": [],
+          "rationale": "No hard-gate violation observed. The run stays at the governing interaction-policy level and preserves the benchmark's chosen directions rather than substituting generic policy."
+        },
+        "phase_scores": {
+          "descent": {
+            "ambiguity_localization": {
+              "score": 2,
+              "rationale": "It localizes the task to the governing PiP interaction-policy ambiguities rather than code wiring."
+            },
+            "abstraction_level_fidelity": {
+              "score": 2,
+              "rationale": "The trace remains at the correct semantic level throughout."
+            },
+            "forced_vs_chosen_separation": {
+              "score": 2,
+              "rationale": "It distinguishes governing policy loci and then treats chosen benchmark directions as settled rather than reopened."
+            },
+            "question_discipline": {
+              "score": 2,
+              "rationale": "The shaping is concise and targeted at the active ambiguity layers."
+            },
+            "non_premature_descent": {
+              "score": 2,
+              "rationale": "It does not jump into implementation review before semantic closure."
+            },
+            "optioning_readiness_discipline": {
+              "score": 2,
+              "rationale": "It enters explicit resolution at the right points and uses the chosen directions as closure rather than fabricating new specifics."
+            }
+          },
+          "option_resolution": {
+            "explicit_residual_policy": {
+              "score": 2,
+              "rationale": "The benchmark's material interaction policy is explicit and settled."
+            },
+            "option_quality": {
+              "score": 2,
+              "rationale": "Policy loci and resolutions are crisp and implementation-governing."
+            },
+            "default_quality": {
+              "score": 2,
+              "rationale": "The chosen directions now match the benchmark's intended defaults rather than generic substitutes."
+            },
+            "resolution_sufficiency": {
+              "score": 2,
+              "rationale": "No material ambiguity remains by recomposition."
+            },
+            "recursive_return_discipline": {
+              "score": 1,
+              "rationale": "The run is clean and direct, but still does not show much explicit recursive return because the chosen directions collapse much of the remaining ambiguity quickly."
+            }
+          },
+          "recomposition": {
+            "implementation_readiness": {
+              "score": 2,
+              "rationale": "The final handoff is directly actionable."
+            },
+            "abstraction_level_fidelity": {
+              "score": 2,
+              "rationale": "The final handoff remains centered on the governing interaction-policy model."
+            },
+            "structural_fidelity": {
+              "score": 2,
+              "rationale": "It preserves the benchmark's settled structure and chosen directions almost completely."
+            },
+            "canonicality": {
+              "score": 2,
+              "rationale": "The handoff is compact and free of irrelevant speculative policy."
+            },
+            "delegation_reliability": {
+              "score": 2,
+              "rationale": "A worker-agent should implement the intended PiP behavior with little semantic drift."
+            },
+            "declared_irrelevancies_and_nongoals": {
+              "score": 2,
+              "rationale": "Non-goals are explicit and bounded to styling/animation layers rather than core interaction semantics."
+            }
+          }
+        },
+        "totals": {
+          "descent": 12,
+          "option_resolution": 9,
+          "recomposition": 12,
+          "overall": 33,
+          "phase_minimums_passed": true,
+          "interpretation": "strong_pda_handoff"
+        },
+        "human_review": {
+          "performed": true,
+          "summary": "This is the first automated PiP run that is close to benchmark-faithful in both abstraction level and settled policy. Adding explicit chosen directions appears to have closed most of the remaining gap left by candidate-302.",
+          "questions": {
+            "removed_concealed_arbitrariness": {
+              "answer": "yes",
+              "rationale": "The decisive hidden forks are surfaced and the settled directions are preserved rather than reinvented."
+            },
+            "questions_necessary_and_well_timed": {
+              "answer": "yes",
+              "rationale": "The shaping sequence remains focused and well-timed."
+            },
+            "final_handoff_canonical": {
+              "answer": "yes",
+              "rationale": "The handoff is close to the benchmark's canonical task shape."
+            },
+            "delegation_reliable": {
+              "answer": "yes",
+              "rationale": "A worker-agent should be guided toward the intended implementation with limited drift."
+            },
+            "preserved_pda_spirit": {
+              "answer": "yes",
+              "rationale": "The run remains clearly de-arbitrarizing rather than merely operational."
+            }
+          }
+        }
+      },
+      "score_path": "results/runs/interactive-pip/candidate-303/score-v2/evaluation.json",
+      "score_is_v2_preferred": true
+    },
+    {
+      "benchmark_id": "interactive-pip",
+      "candidate_id": "candidate-304",
+      "manifest": {
+        "benchmark_id": "interactive-pip",
+        "candidate_id": "candidate-304",
+        "candidate_artifact": "optimizer/dspy",
+        "run_kind": "automated",
+        "source_kind": "optimizer_generated",
+        "summary": "DSPy-generated candidate run.",
+        "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+      },
+      "score": null,
+      "score_path": null,
+      "score_is_v2_preferred": false
+    },
+    {
+      "benchmark_id": "interactive-pip",
+      "candidate_id": "candidate-305",
+      "manifest": {
+        "benchmark_id": "interactive-pip",
+        "candidate_id": "candidate-305",
+        "candidate_artifact": "optimizer/dspy",
+        "run_kind": "automated",
+        "source_kind": "optimizer_generated",
+        "summary": "DSPy-generated candidate run.",
+        "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+      },
+      "score": null,
+      "score_path": null,
+      "score_is_v2_preferred": false
+    },
+    {
+      "benchmark_id": "interactive-pip",
+      "candidate_id": "candidate-306",
+      "manifest": {
+        "benchmark_id": "interactive-pip",
+        "candidate_id": "candidate-306",
+        "candidate_artifact": "optimizer/dspy",
+        "run_kind": "automated",
+        "source_kind": "optimizer_generated",
+        "summary": "DSPy-generated candidate run.",
+        "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+      },
+      "score": null,
+      "score_path": null,
+      "score_is_v2_preferred": false
+    },
+    {
+      "benchmark_id": "interactive-pip",
+      "candidate_id": "candidate-307",
+      "manifest": {
+        "benchmark_id": "interactive-pip",
+        "candidate_id": "candidate-307",
+        "candidate_artifact": "optimizer/dspy",
+        "run_kind": "automated",
+        "source_kind": "optimizer_generated",
+        "summary": "DSPy-generated candidate run.",
+        "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+      },
+      "score": null,
+      "score_path": null,
+      "score_is_v2_preferred": false
+    },
+    {
+      "benchmark_id": "interactive-pip",
+      "candidate_id": "candidate-308",
+      "manifest": {
+        "benchmark_id": "interactive-pip",
+        "candidate_id": "candidate-308",
+        "candidate_artifact": "optimizer/dspy",
+        "run_kind": "automated",
+        "source_kind": "optimizer_generated",
+        "summary": "DSPy-generated candidate run.",
+        "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+      },
+      "score": null,
+      "score_path": null,
+      "score_is_v2_preferred": false
+    },
+    {
+      "benchmark_id": "interactive-pip",
+      "candidate_id": "candidate-309",
+      "manifest": {
+        "benchmark_id": "interactive-pip",
+        "candidate_id": "candidate-309",
+        "candidate_artifact": "optimizer/dspy",
+        "run_kind": "automated",
+        "source_kind": "optimizer_generated",
+        "summary": "DSPy-generated candidate run.",
+        "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+      },
+      "score": null,
+      "score_path": null,
+      "score_is_v2_preferred": false
+    },
+    {
+      "benchmark_id": "interactive-pip",
+      "candidate_id": "candidate-310",
+      "manifest": {
+        "benchmark_id": "interactive-pip",
+        "candidate_id": "candidate-310",
+        "candidate_artifact": "optimizer/dspy",
+        "run_kind": "automated",
+        "source_kind": "optimizer_generated",
+        "summary": "DSPy-generated candidate run.",
+        "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+      },
+      "score": null,
+      "score_path": null,
+      "score_is_v2_preferred": false
     }
   ]
 }
