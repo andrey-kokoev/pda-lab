@@ -17,3 +17,18 @@ So optimizer work should treat benchmark grounding as layered:
 1. closed formulation
 2. faithfulness contract
 3. chosen directions, when the benchmark has settled specifics worth preserving
+
+
+## When To Use Chosen Directions
+
+Use `chosen-directions.md` only for benchmarks that have already earned specific commitments which should not be reopened during generation.
+
+Use it when:
+- settled directions materially affect implementation fidelity
+- single-shot grounded generation still drifts into generic policy or over-abstraction
+- preserving prior closure matters more than re-eliciting choice
+
+Do not use it when:
+- the benchmark is meant to test whether the model can surface those choices itself
+- the directions are minor styling details or low-signal preferences
+- the closed formulation already constrains the outcome sufficiently
