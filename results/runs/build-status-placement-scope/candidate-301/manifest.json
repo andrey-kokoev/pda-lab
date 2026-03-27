@@ -1,0 +1,9 @@
+{
+  "benchmark_id": "build-status-placement-scope",
+  "candidate_id": "candidate-301",
+  "candidate_artifact": "optimizer/dspy",
+  "run_kind": "automated",
+  "source_kind": "optimizer_generated",
+  "summary": "DSPy-generated candidate run.",
+  "notes": "Single-shot draft only."
+}

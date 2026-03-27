@@ -1,0 +1,55 @@
+{
+  "rubric_version": "pda-handoff-v2",
+  "candidate_id": "candidate-301",
+  "benchmark_id": "build-status-placement-scope",
+  "notes": "First LM-backed DSPy/Kimi run for the build-status placement/scope benchmark. It stays centered on placement, visual weight, and surface scope rather than drifting into build-identity semantics, and it preserves the settled chosen directions cleanly.",
+  "hard_gates": {
+    "passed": true,
+    "violations": [],
+    "rationale": "No hard-gate violation observed. The run localizes the ambiguity to placement and presentation weight, preserves landing-only scope, and does not overbuild the status element into a primary control or modal-like surface."
+  },
+  "phase_scores": {
+    "descent": {
+      "ambiguity_localization": { "score": 2, "rationale": "It correctly localizes the live ambiguity to status role, placement, and visual weight rather than data-model semantics." },
+      "abstraction_level_fidelity": { "score": 2, "rationale": "The trace stays at the governing abstraction level of boundary/scope and information hierarchy." },
+      "forced_vs_chosen_separation": { "score": 2, "rationale": "It separates the need for secondary status treatment from contingent styling details like exact spacing or color token." },
+      "question_discipline": { "score": 2, "rationale": "Questions are tight and sequential, each reducing a live ambiguity cleanly." },
+      "non_premature_descent": { "score": 2, "rationale": "It does not jump into implementation before clarifying placement, role, and scope." },
+      "optioning_readiness_discipline": { "score": 2, "rationale": "It resolves only after the active ambiguity is explicit and grounded by the benchmark directions." }
+    },
+    "option_resolution": {
+      "explicit_residual_policy": { "score": 2, "rationale": "The material decisions are explicit: secondary status, muted text, footer placement, landing-only scope, non-modal behavior." },
+      "option_quality": { "score": 2, "rationale": "Resolved directions are crisp and implementation-governing." },
+      "default_quality": { "score": 2, "rationale": "The resulting directions align tightly with the benchmark's settled treatment." },
+      "resolution_sufficiency": { "score": 2, "rationale": "No material ambiguity remains by recomposition." },
+      "recursive_return_discipline": { "score": 1, "rationale": "The benchmark is simple enough that the run does not need much explicit recursive return after the main placement/scope decisions are settled." }
+    },
+    "recomposition": {
+      "implementation_readiness": { "score": 2, "rationale": "The handoff is directly actionable for UI implementation." },
+      "abstraction_level_fidelity": { "score": 2, "rationale": "The handoff remains centered on placement, visual weight, and scope rather than re-expanding into unrelated build-status concerns." },
+      "structural_fidelity": { "score": 2, "rationale": "It preserves the benchmark's settled structure: landing-only, plain text, muted, footer placement, non-modal, non-interactive." },
+      "canonicality": { "score": 2, "rationale": "The handoff is compact and avoids unnecessary extras." },
+      "delegation_reliability": { "score": 2, "rationale": "A worker-agent should implement the intended presentation with little semantic drift." },
+      "declared_irrelevancies_and_nongoals": { "score": 2, "rationale": "Remaining implementation details are bounded cleanly to minor token/spacing choices." }
+    }
+  },
+  "totals": {
+    "descent": 12,
+    "option_resolution": 9,
+    "recomposition": 12,
+    "overall": 33,
+    "phase_minimums_passed": true,
+    "interpretation": "strong_pda_handoff"
+  },
+  "human_review": {
+    "performed": true,
+    "summary": "The current grounded single-shot generator transfers cleanly to this boundary/scope benchmark. It treats the build status element as secondary status, clarifies scope before implementation, and preserves the chosen directions without overbuilding.",
+    "questions": {
+      "removed_concealed_arbitrariness": { "answer": "yes", "rationale": "The decisive hidden forks around role, weight, placement, and surface scope are surfaced and resolved." },
+      "questions_necessary_and_well_timed": { "answer": "yes", "rationale": "The shaping sequence is concise and appropriately ordered." },
+      "final_handoff_canonical": { "answer": "yes", "rationale": "The handoff is close to the benchmark's canonical task shape." },
+      "delegation_reliable": { "answer": "yes", "rationale": "A worker-agent should execute toward the intended outcome with minimal drift." },
+      "preserved_pda_spirit": { "answer": "yes", "rationale": "The run remains de-arbitrarizing rather than merely operational or decorative." }
+    }
+  }
+}
