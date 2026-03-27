@@ -12,7 +12,19 @@ Executable scripts:
 - `optimizer/dspy/src/generate_candidate.py`
 - `optimizer/dspy/src/check_provider.py`
 
-`generate_candidate.py` supports:
+`generate_candidate.py` supports three practical modes:
+- default single-shot draft generation
+- optional lightweight critique via `--with-critique`
+- optional critique-triggered revision via `--with-critique --auto-revise`
+
+This is deliberate. Full always-on multi-pass generation was too slow for practical iteration with the current model, so the generator now keeps the strong single-shot path as default and makes extra search structure opt-in.
+
+Current practical default:
+- use the grounded single-shot path first
+- treat critique/revision as targeted experiments, not routine generation
+
+
+Other supported behavior:
 - `--dry-run` for local smoke testing without an LM
 - real LM-backed generation via DSPy when `--model` or `DSPY_MODEL` is provided
 - automatic loading of repo-local `.env` from the project root
@@ -45,6 +57,8 @@ Copy it to the repo root as `.env` and fill in your real values.
 uv run python optimizer/dspy/src/check_provider.py
 uv run python optimizer/dspy/src/generate_candidate.py build-update-visibility candidate-202 --dry-run
 uv run python optimizer/dspy/src/generate_candidate.py build-update-visibility candidate-203 --model openai/kimi-k2.5
+uv run python optimizer/dspy/src/generate_candidate.py interactive-pip candidate-312 --with-critique
+uv run python optimizer/dspy/src/generate_candidate.py interactive-pip candidate-313 --with-critique --auto-revise
 ```
 
 ## Why Separate Generation And Scoring

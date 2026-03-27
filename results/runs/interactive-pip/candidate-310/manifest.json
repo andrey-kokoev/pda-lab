@@ -1,0 +1,9 @@
+{
+  "benchmark_id": "interactive-pip",
+  "candidate_id": "candidate-310",
+  "candidate_artifact": "optimizer/dspy",
+  "run_kind": "automated",
+  "source_kind": "optimizer_generated",
+  "summary": "DSPy-generated candidate run.",
+  "notes": "Generated from results/optimizer-dataset.json and intended for v2 scoring."
+}
